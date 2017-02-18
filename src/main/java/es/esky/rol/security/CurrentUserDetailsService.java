@@ -28,7 +28,8 @@ public class CurrentUserDetailsService implements UserDetailsService {
         try {
             user = usersService.findByUsername(username);
         } catch (UserNotFoundException e) {
-            throw new UsernameNotFoundException(e.getMessage());
+            String error = String.format("User %s was not found.", username);
+            throw new UsernameNotFoundException(error, e);
         }
         return new CurrentUserDetails(user);
     }
