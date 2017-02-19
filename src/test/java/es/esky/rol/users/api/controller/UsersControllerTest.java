@@ -3,7 +3,6 @@ package es.esky.rol.users.api.controller;
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.service.UsersService;
-import org.jetbrains.annotations.Contract;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -303,7 +302,6 @@ public class UsersControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Contract(pure = true)
     private String buildUserRequest() {
         return "{" +
                 "\"username\":" + "\"" + USERNAME1 + "\"" + "," +
@@ -311,7 +309,6 @@ public class UsersControllerTest {
                 "}";
     }
 
-    @Contract(pure = true)
     private String buildUserCustomPasswordRequest(String password) {
         return "{" +
                 "\"username\":" + "\"" + USERNAME1 + "\"" + "," +
