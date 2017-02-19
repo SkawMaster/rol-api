@@ -177,8 +177,8 @@ public class UsersControllerTest {
         mvc.perform(get(UsersController.BASE_URL + "/" + USERNAME1)
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.code", is(UserNotFoundException.USER_NOT_FOUND_ERROR_CODE)))
-                .andExpect(jsonPath("$.message", is(UserNotFoundException.USER_NOT_FOUND_MSG)));
+                .andExpect(jsonPath("$.code", is("")))
+                .andExpect(jsonPath("$.message", is("")));
 
         then(usersService).should(times(1)).findByUsername(anyString());
         then(usersService).should(noMoreInteractions()).findByUsername(anyString());
@@ -199,8 +199,8 @@ public class UsersControllerTest {
 
         mvc.perform(delete(UsersController.BASE_URL + "/" + USERNAME1))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.code", is(UserNotFoundException.USER_NOT_FOUND_ERROR_CODE)))
-                .andExpect(jsonPath("$.message", is(UserNotFoundException.USER_NOT_FOUND_MSG)));
+                .andExpect(jsonPath("$.code", is("")))
+                .andExpect(jsonPath("$.message", is("")));
 
         then(usersService).should(times(1)).deleteByUsername(anyString());
         then(usersService).should(noMoreInteractions()).deleteByUsername(anyString());
