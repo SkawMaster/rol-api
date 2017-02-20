@@ -1,8 +1,5 @@
 package es.esky.rol.users.api.exception;
 
-/**
- * @author Cristian Mateos López
- */
 public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException(String message, Throwable cause) {

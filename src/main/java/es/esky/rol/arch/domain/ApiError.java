@@ -2,9 +2,6 @@ package es.esky.rol.arch.domain;
 
 import java.io.Serializable;
 
-/**
- * @author Cristian Mateos López
- */
 public class ApiError implements Serializable {
     private static final long serialVersionUID = 1L;
 

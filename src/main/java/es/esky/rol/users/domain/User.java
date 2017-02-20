@@ -17,9 +17,6 @@ import java.io.Serializable;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
-/**
- * @author Cristian Mateos López
- */
 @Entity
 @Table(name = "USERS")
 @Unique

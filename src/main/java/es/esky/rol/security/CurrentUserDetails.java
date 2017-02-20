@@ -7,9 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-/**
- * @author Cristian Mateos López
- */
 class CurrentUserDetails implements UserDetails {
 
     private User userInfo;
