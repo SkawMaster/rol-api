@@ -1,7 +1,7 @@
 package es.esky.rol.users.api.controller;
 
 import es.esky.rol.arch.domain.PaginationUtils;
-import es.esky.rol.arch.error.ApiError;
+import es.esky.rol.arch.domain.ApiError;
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.service.UsersService;
