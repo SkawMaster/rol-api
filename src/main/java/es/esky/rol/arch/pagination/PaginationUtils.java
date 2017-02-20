@@ -13,10 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Utils function about treat with pagination standard.
+ */
 public class PaginationUtils {
-    private PaginationUtils() {
-    }
 
+    /**
+     * Build a page response with standards headers and without surround the content in an object.
+     *
+     * @param page               Page will be processed.
+     * @param resourcesAssembler Link assembler.
+     * @param link               Link base.
+     * @param <T>                Entity type of the list.
+     * @return A response with an array content and headers sets for pagination.
+     */
     public static <T> ResponseEntity<List<T>> buildResponse(Page<T> page, PagedResourcesAssembler<T> resourcesAssembler, Link link) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-Total-Count", Long.toString(page.getTotalElements()));
