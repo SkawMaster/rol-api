@@ -8,9 +8,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-/**
- * @author Cristian Mateos López
- */
 @Component
 public class UniqueValidator implements ConstraintValidator<Unique, User> {
 

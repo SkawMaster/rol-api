@@ -2,9 +2,6 @@ package es.esky.rol.users.domain.builder;
 
 import es.esky.rol.users.domain.User;
 
-/**
- * @author Cristian Mateos López
- */
 public class UserBuilder {
 
     private User user;

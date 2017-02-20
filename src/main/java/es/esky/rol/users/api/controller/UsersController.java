@@ -1,6 +1,6 @@
 package es.esky.rol.users.api.controller;
 
-import es.esky.rol.arch.domain.PaginationUtils;
+import es.esky.rol.arch.pagination.PaginationUtils;
 import es.esky.rol.arch.domain.ApiError;
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-/**
- * @author Cristian Mateos López
- */
 @RestController
 @RequestMapping(value = UsersController.BASE_URL)
 class UsersController {

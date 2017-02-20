@@ -1,4 +1,4 @@
-package es.esky.rol.arch.domain;
+package es.esky.rol.arch.pagination;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Cristian Mateos López
- */
 public class PaginationUtils {
     private PaginationUtils() {
     }

@@ -6,9 +6,6 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
-/**
- * @author Cristian Mateos López
- */
 @Component
 class LowercaseValidator implements ConstraintValidator<Lowercase, String> {
 

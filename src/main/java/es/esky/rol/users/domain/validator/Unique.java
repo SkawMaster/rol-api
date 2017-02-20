@@ -8,9 +8,6 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * @author Cristian Mateos López
- */
 @SuppressWarnings("unused")
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)

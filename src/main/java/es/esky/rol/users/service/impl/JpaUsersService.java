@@ -1,6 +1,5 @@
 package es.esky.rol.users.service.impl;
 
-import es.esky.rol.arch.jpa.JpaService;
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.repository.UsersRepository;
@@ -10,14 +9,12 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-/**
- * @author Cristian Mateos López
- */
-@JpaService
+@Service
 public class JpaUsersService implements UsersService {
 
     private final UsersRepository usersRepository;
@@ -54,8 +51,8 @@ public class JpaUsersService implements UsersService {
     @Override
     @Transactional
     public User save(User user) {
-        String unhashedPassword = user.getPassword();
-        user.setPassword(passwordEncoder.encode(unhashedPassword));
+        String unHashedPassword = user.getPassword();
+        user.setPassword(passwordEncoder.encode(unHashedPassword));
         return usersRepository.save(user);
     }
 
