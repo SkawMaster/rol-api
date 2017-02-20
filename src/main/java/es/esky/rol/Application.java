@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
+@SpringBootApplication
 public class Application {
 
     private static final int ENCODER_STRENGTH = 10;
