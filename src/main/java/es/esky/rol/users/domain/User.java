@@ -26,15 +26,15 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
-
 import java.io.Serializable;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
 /**
  * User domain model.
+ *
+ * @since 1.0.0
  */
 @Entity
 @Table(name = "USERS")
@@ -54,6 +54,7 @@ public class User implements Serializable {
 
     /**
      * Get username.
+     *
      * @return username.
      */
     public String getUsername() {
@@ -62,6 +63,7 @@ public class User implements Serializable {
 
     /**
      * Set username.
+     *
      * @param username username.
      */
     public void setUsername(String username) {
@@ -70,6 +72,7 @@ public class User implements Serializable {
 
     /**
      * Get password.
+     *
      * @return password.
      */
     public String getPassword() {
@@ -78,6 +81,7 @@ public class User implements Serializable {
 
     /**
      * Set password.
+     *
      * @param password password.
      */
     public void setPassword(String password) {

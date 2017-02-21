@@ -16,12 +16,12 @@
 
 package es.esky.rol.arch.domain;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-
 import java.io.Serializable;
 
 /**
  * Store an api error response.
+ *
+ * @since 1.0.0
  */
 public class ApiError implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,6 +31,7 @@ public class ApiError implements Serializable {
 
     /**
      * Construct an api error.
+     *
      * @param code    Unique error identification.
      * @param message Message error.
      */

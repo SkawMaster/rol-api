@@ -24,6 +24,8 @@ import java.util.regex.Pattern;
 
 /**
  * Validate a {@link Lowercase} constraint.
+ *
+ * @since 1.0.0
  */
 @Component
 class LowercaseValidator implements ConstraintValidator<Lowercase, String> {

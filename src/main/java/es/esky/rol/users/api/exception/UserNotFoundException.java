@@ -18,6 +18,8 @@ package es.esky.rol.users.api.exception;
 
 /**
  * Exception thrown when a user not exist.
+ *
+ * @since 1.0.0
  */
 public class UserNotFoundException extends RuntimeException {
 

@@ -26,6 +26,8 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * Validate a {@link Unique} constraint for type {@link User}.
+ *
+ * @since 1.0.0
  */
 @Component
 public class UniqueValidator implements ConstraintValidator<Unique, User> {

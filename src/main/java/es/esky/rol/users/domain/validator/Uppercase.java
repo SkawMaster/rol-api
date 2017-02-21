@@ -26,6 +26,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must have a upper char.
+ *
+ * @since 1.0.0
  */
 @Target({METHOD, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)

@@ -24,6 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Api entry point class.
+ *
+ * @since 1.0.0
  */
 @SpringBootApplication
 public class Application {
@@ -32,6 +34,7 @@ public class Application {
 
     /**
      * Entry point.
+     *
      * @param args Application call arguments.
      */
     public static void main(String... args) {
@@ -40,6 +43,7 @@ public class Application {
 
     /**
      * Configured password encoder bean.
+     *
      * @return A configured {@link BCryptPasswordEncoder}.
      */
     @Bean

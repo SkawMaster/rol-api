@@ -21,6 +21,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  * Access via JPA to users data.
+ *
+ * @since 1.0.0
  */
 public interface UsersRepository extends PagingAndSortingRepository<User, String> {
 }

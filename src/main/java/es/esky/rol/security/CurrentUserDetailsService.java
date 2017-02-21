@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Load user data from a {@link UsersService}.
+ *
+ * @since 1.0.0
  */
 @Component
 public class CurrentUserDetailsService implements UserDetailsService {
@@ -35,8 +37,8 @@ public class CurrentUserDetailsService implements UserDetailsService {
 
     /**
      * Constructor of CurrentDetailsService.
-     * 
-     * @param usersService Provide the way to get user data.  
+     *
+     * @param usersService Provide the way to get user data.
      */
     @Autowired
     public CurrentUserDetailsService(UsersService usersService) {

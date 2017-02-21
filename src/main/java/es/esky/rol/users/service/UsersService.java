@@ -22,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * Provide users data.
+ *
+ * @since 1.0.0
  */
 public interface UsersService {
 

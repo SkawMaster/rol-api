@@ -37,6 +37,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 /**
  * User resource controller.
+ *
+ * @since 1.0.0
  */
 @RestController
 @RequestMapping(value = UsersController.BASE_URL)

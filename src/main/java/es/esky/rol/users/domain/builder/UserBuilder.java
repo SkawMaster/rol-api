@@ -20,6 +20,8 @@ import es.esky.rol.users.domain.User;
 
 /**
  * User instance builder.
+ *
+ * @since 1.0.0
  */
 public class UserBuilder {
 

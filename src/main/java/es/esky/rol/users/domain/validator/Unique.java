@@ -27,6 +27,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * The annotated element must be unique.
+ *
+ * @since 1.0.0
  */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)

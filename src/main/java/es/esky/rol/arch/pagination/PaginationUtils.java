@@ -31,6 +31,8 @@ import java.util.stream.Collectors;
 
 /**
  * Utils function about treat with pagination standard.
+ *
+ * @since 1.0.0
  */
 public class PaginationUtils {
 

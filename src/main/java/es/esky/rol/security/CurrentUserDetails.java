@@ -25,6 +25,8 @@ import java.util.Collection;
 
 /**
  * Stores information about the current user logged.
+ *
+ * @since 1.0.0
  */
 class CurrentUserDetails implements UserDetails {
 
@@ -32,6 +34,7 @@ class CurrentUserDetails implements UserDetails {
 
     /**
      * Construct a new CurrentUserDetails.
+     *
      * @param userInfo User logged information.
      */
     public CurrentUserDetails(User userInfo) {

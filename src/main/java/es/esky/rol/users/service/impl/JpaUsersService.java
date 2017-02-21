@@ -32,6 +32,8 @@ import java.util.Optional;
 
 /**
  * JPA implementation of {@link UsersService}.
+ *
+ * @since 1.0.0
  */
 @Service
 public class JpaUsersService implements UsersService {

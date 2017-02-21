@@ -24,6 +24,8 @@ import java.util.regex.Pattern;
 
 /**
  * Validate a {@link Uppercase} constraint.
+ *
+ * @since 1.0.0
  */
 @Component
 class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
