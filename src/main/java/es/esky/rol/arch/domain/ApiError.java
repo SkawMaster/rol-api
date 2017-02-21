@@ -44,7 +44,6 @@ public class ApiError implements Serializable {
      *
      * @return Error identification.
      */
-    @JsonGetter
     public String getCode() {
         return code;
     }
@@ -54,7 +53,6 @@ public class ApiError implements Serializable {
      *
      * @return Message error.
      */
-    @JsonGetter
     public String getMessage() {
         return message;
     }

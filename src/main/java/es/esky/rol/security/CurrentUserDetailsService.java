@@ -44,7 +44,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

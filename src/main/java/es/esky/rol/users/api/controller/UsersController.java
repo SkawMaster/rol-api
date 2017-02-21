@@ -16,8 +16,8 @@
 
 package es.esky.rol.users.api.controller;
 
-import es.esky.rol.arch.pagination.PaginationUtils;
 import es.esky.rol.arch.domain.ApiError;
+import es.esky.rol.arch.pagination.PaginationUtils;
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.service.UsersService;
@@ -35,6 +35,9 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+/**
+ * User resource controller.
+ */
 @RestController
 @RequestMapping(value = UsersController.BASE_URL)
 class UsersController {
@@ -42,11 +45,23 @@ class UsersController {
 
     private final UsersService usersService;
 
+    /**
+     * Constructor of UsersController.
+     *
+     * @param usersService Users service.
+     */
     @Autowired
     public UsersController(UsersService usersService) {
         this.usersService = usersService;
     }
 
+    /**
+     * Find a page of users by a criteria.
+     *
+     * @param page               Requested page.
+     * @param resourcesAssembler Link assembler.
+     * @return Page requested.
+     */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity findByCriteria(Pageable page, PagedResourcesAssembler<User> resourcesAssembler) {
         Page<User> userPage = usersService.findByCriteria(page);
@@ -54,27 +69,50 @@ class UsersController {
         return PaginationUtils.buildResponse(userPage, resourcesAssembler, link);
     }
 
+    /**
+     * Find an user by a username.
+     *
+     * @param username Unique username.
+     * @return User requested.
+     */
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> findByUsername(@PathVariable("username") String username) {
         User user = usersService.findByUsername(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    /**
+     * Delete a user.
+     *
+     * @param username User's username that will be deleted.
+     */
     @RequestMapping(value = "/{username}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByUsername(@PathVariable("username") String username) {
         usersService.deleteByUsername(username);
     }
 
+    /**
+     * Save a new user.
+     *
+     * @param user User will be saved.
+     * @return The user after save it.
+     */
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<User> save(@RequestBody @Validated User user) {
         User userCreated = usersService.save(user);
         return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
     }
 
+    /**
+     * Handler {@link UserNotFoundException}.
+     *
+     * @param e Exception will be handled.
+     * @return Api error response.
+     */
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiError> userNotFound(UserNotFoundException e) {
-        ApiError error = new ApiError("", "");
+        ApiError error = new ApiError("user_not_found", "User not exist.");
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }
