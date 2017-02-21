@@ -50,7 +50,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
      * {@inheritDoc}
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         User user;
         try {
             user = usersService.findByUsername(username);
