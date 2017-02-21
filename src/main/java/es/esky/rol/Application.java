@@ -35,7 +35,7 @@ public class Application {
      * @param args Application call arguments.
      */
     public static void main(String... args) {
-        SpringApplication.run(Application.class);
+        SpringApplication.run(Application.class, args);
     }
 
     /**
