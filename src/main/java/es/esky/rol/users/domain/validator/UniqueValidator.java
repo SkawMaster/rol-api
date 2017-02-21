@@ -50,6 +50,7 @@ public class UniqueValidator implements ConstraintValidator<Unique, User> {
      */
     @Override
     public void initialize(Unique constraint) {
+        // Not initialization needed.
     }
 
     /**
