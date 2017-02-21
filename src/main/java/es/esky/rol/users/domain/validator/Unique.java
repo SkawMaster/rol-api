@@ -28,6 +28,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * The annotated element must be unique.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Target({TYPE, ANNOTATION_TYPE})

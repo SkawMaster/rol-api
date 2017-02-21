@@ -21,6 +21,7 @@ import java.io.Serializable;
 /**
  * Store an api error response.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class ApiError implements Serializable {

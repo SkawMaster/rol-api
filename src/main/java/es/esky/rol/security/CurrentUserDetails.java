@@ -26,6 +26,7 @@ import java.util.Collection;
 /**
  * Stores information about the current user logged.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 class CurrentUserDetails implements UserDetails {

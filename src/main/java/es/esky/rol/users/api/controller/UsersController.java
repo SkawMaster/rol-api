@@ -38,6 +38,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 /**
  * User resource controller.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @RestController

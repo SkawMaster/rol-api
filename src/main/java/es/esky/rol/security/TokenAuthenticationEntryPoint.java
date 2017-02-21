@@ -28,6 +28,7 @@ import java.io.IOException;
  * <p>
  * Configure entry point to respond with an 401 http error and set Token realm in www-authenticate header.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint {

@@ -30,6 +30,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * <li>Set token entry point.
  * </ul>
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Configuration

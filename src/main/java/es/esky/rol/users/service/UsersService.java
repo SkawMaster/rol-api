@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 /**
  * Provide users data.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface UsersService {

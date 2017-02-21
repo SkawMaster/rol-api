@@ -25,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Api entry point class.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @SpringBootApplication

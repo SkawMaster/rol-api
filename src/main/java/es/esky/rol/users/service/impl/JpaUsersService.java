@@ -33,6 +33,7 @@ import java.util.Optional;
 /**
  * JPA implementation of {@link UsersService}.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Service

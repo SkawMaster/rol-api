@@ -21,6 +21,7 @@ import es.esky.rol.users.domain.User;
 /**
  * User instance builder.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class UserBuilder {

@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 /**
  * Validate a {@link Lowercase} constraint.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component

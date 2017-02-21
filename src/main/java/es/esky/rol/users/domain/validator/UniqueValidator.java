@@ -27,6 +27,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Validate a {@link Unique} constraint for type {@link User}.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component

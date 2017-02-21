@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 /**
  * Load user data from a {@link UsersService}.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component

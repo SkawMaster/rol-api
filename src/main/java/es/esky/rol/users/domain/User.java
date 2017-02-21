@@ -34,6 +34,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 /**
  * User domain model.
  *
+ * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Entity
