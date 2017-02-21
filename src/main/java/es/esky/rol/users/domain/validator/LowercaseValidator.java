@@ -38,6 +38,7 @@ class LowercaseValidator implements ConstraintValidator<Lowercase, String> {
      */
     @Override
     public void initialize(Lowercase constraintAnnotation) {
+        // Not initialization needed.
     }
 
     /**

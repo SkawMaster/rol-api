@@ -38,6 +38,7 @@ class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
      */
     @Override
     public void initialize(Uppercase constraintAnnotation) {
+        // Not initialization needed.
     }
 
     /**
