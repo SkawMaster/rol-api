@@ -26,9 +26,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * <p>
  * The configuration is:
  * <ul>
- * <li>Set http basic authentication.
- * <li>Set token entry point.
+ * <li>Set http basic authentication.</li>
+ * <li>Set token entry point.</li>
  * </ul>
+ * </p>
  *
  * @author Cristian Mateos López
  * @since 1.0.0

@@ -38,7 +38,9 @@ public interface UsersService {
 
     /**
      * Find a user by its username
-     * <p>Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
+     * <p>
+     * Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
+     * </p>
      *
      * @param username User username
      * @return User
@@ -47,7 +49,9 @@ public interface UsersService {
 
     /**
      * Delete a user by its username.
-     * <p>Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
+     * <p>
+     * Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
+     * </p>
      *
      * @param username User username
      */
