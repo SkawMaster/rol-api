@@ -27,19 +27,8 @@ import java.io.Serializable;
 public class ApiError implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final String code;
-    private final String message;
-
-    /**
-     * Construct an api error.
-     *
-     * @param code    Unique error identification.
-     * @param message Message error.
-     */
-    public ApiError(final String code, final String message) {
-        this.code = code;
-        this.message = message;
-    }
+    private String code;
+    private String message;
 
     /**
      * Get code error identification.
@@ -50,6 +39,10 @@ public class ApiError implements Serializable {
         return code;
     }
 
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     /**
      * Get message error.
      *
@@ -57,5 +50,10 @@ public class ApiError implements Serializable {
      */
     public String getMessage() {
         return message;
+    }
+
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
