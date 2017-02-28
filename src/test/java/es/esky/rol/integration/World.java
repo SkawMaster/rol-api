@@ -1,5 +1,6 @@
 package es.esky.rol.integration;
 
+import es.esky.rol.users.domain.User;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class World {
     private HttpEntity response;
-    private HttpEntity request;
+    private User userLogged;
 
     public HttpEntity getResponse() {
         return response;
@@ -19,11 +20,11 @@ public class World {
         this.response = response;
     }
 
-    public HttpEntity getRequest() {
-        return request;
+    public User getUserLogged() {
+        return userLogged;
     }
 
-    public void setRequest(HttpEntity request) {
-        this.request = request;
+    public void setUserLogged(User userLogged) {
+        this.userLogged = userLogged;
     }
 }
