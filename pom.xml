@@ -12,6 +12,7 @@
     <java.version>1.8</java.version>
     <version.commons-lang3>3.5</version.commons-lang3>
     <version.commons-collections4>4.1</version.commons-collections4>
+    <version.cucumber>1.2.5</version.cucumber>
   </properties>
 
   <parent>
@@ -57,13 +58,31 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${version.cucumber}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${version.cucumber}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>info.cukes</groupId>
+      <artifactId>cucumber-spring</artifactId>
+      <version>${version.cucumber}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>provided</scope>
     </dependency>
   </dependencies>
-
-  <build>
+         
+  <build>  
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
