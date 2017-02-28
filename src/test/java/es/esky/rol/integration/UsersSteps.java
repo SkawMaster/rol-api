@@ -4,6 +4,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import es.esky.rol.users.domain.User;
 import es.esky.rol.users.domain.builder.UserBuilder;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -42,9 +43,14 @@ public class UsersSteps {
 
     @When("^I request users resource$")
     public void i_request_users_resource() throws Throwable {
-        HttpEntity response = restTemplate
-                .withBasicAuth(world.getUserLogged().getUsername(), world.getUserLogged().getPassword())
-                .exchange("/users", HttpMethod.GET, null, String.class);
+        User user = world.getUserLogged();
+        TestRestTemplate template = restTemplate;
+
+        if (user != null) {
+            template = restTemplate.withBasicAuth(user.getUsername(), user.getPassword());
+        }
+
+        HttpEntity response = template.exchange("/users", HttpMethod.GET, null, String.class);
         world.setResponse(response);
     }
 
