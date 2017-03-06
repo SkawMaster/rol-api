@@ -31,8 +31,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 public class Application {
 
-    private static final int ENCODER_STRENGTH = 10;
-
     /**
      * Entry point.
      *
@@ -40,15 +38,5 @@ public class Application {
      */
     public static void main(String... args) {
         SpringApplication.run(Application.class, args);
-    }
-
-    /**
-     * Configured password encoder bean.
-     *
-     * @return A configured {@link BCryptPasswordEncoder}.
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(ENCODER_STRENGTH);
     }
 }

@@ -16,10 +16,13 @@
 
 package es.esky.rol.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configure security of the application.
@@ -38,6 +41,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static final int ENCODER_STRENGTH = 10;
+
     /**
      * {@inheritDoc}
      */
@@ -47,5 +52,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic().authenticationEntryPoint(new TokenAuthenticationEntryPoint())
                 .and().csrf().disable();
+    }
+
+    /**
+     * Configured password encoder bean.
+     *
+     * @return A configured {@link BCryptPasswordEncoder}.
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(ENCODER_STRENGTH);
     }
 }
