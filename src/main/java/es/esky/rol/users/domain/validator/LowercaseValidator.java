@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * @since 1.0.0
  */
 @Component
-class LowercaseValidator implements ConstraintValidator<Lowercase, String> {
+public class LowercaseValidator implements ConstraintValidator<Lowercase, String> {
 
     private final Pattern hasLowercase = Pattern.compile("[a-z]");
 

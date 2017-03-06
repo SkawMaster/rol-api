@@ -18,7 +18,6 @@ package es.esky.rol.users.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import es.esky.rol.users.domain.validator.Lowercase;
-import es.esky.rol.users.domain.validator.Unique;
 import es.esky.rol.users.domain.validator.Uppercase;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -39,7 +38,6 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
  */
 @Entity
 @Table(name = "USERS")
-@Unique
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,7 +48,7 @@ public class User implements Serializable {
     @JsonProperty(access = WRITE_ONLY)
     @Lowercase
     @Uppercase
-    @Size(min = 8, max = 30)
+    @Size(min = 8)
     private String password;
 
     /**

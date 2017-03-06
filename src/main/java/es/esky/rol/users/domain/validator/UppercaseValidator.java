@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * @since 1.0.0
  */
 @Component
-class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
+public class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
 
     private final Pattern hasUppercase = Pattern.compile("[A-Z]");
 

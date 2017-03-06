@@ -45,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().fullyAuthenticated()
                 .and()
-                .httpBasic().authenticationEntryPoint(new TokenAuthenticationEntryPoint());
+                .httpBasic().authenticationEntryPoint(new TokenAuthenticationEntryPoint())
+                .and().csrf().disable();
     }
 }

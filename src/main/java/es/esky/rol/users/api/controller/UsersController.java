@@ -117,7 +117,7 @@ class UsersController {
     public ResponseEntity<ApiError> userNotFound(UserNotFoundException e) {
         ApiError error = new ApiError();
         error.setCode("user_not_found");
-        error.setMessage("User not exist.");
+        error.setMessage(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }
