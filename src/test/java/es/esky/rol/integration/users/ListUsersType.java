@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration;
+package es.esky.rol.integration.users;
+
+import es.esky.rol.users.domain.User;
+import org.springframework.core.ParameterizedTypeReference;
+
+import java.util.List;
 
 /**
- * Representation of data shared between steps.
+ * Encapsulate an {@link ParameterizedTypeReference} of type {@code List<User>}
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public interface World {
+public class ListUsersType extends ParameterizedTypeReference<List<User>> {
 
     /**
-     * Clean a world.
-     * <p>
-     * Must be used each time start a new test.
-     * </p>
+     * Return {@link ListUsersType} with fluent code style.
+     *
+     * @return A new instance of {@link ListUsersType}
      */
-    void reset();
+    public static ListUsersType asListUsers() {
+        return new ListUsersType();
+    }
 }
