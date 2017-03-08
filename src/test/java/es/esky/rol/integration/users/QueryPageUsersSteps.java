@@ -20,7 +20,9 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static es.esky.rol.users.domain.builder.UserBuilder.user;
 import static org.hamcrest.CoreMatchers.*;
@@ -101,6 +103,24 @@ public class QueryPageUsersSteps {
     }
 
     /**
+     * Make an api call to /users.
+     */
+    @When("^I get resource /users with page (\\d+)$")
+    public void i_request_users_resource_with_page(int page) {
+        TestRestTemplate template = restTemplate;
+
+        if (authenticationWorld.haveCredentials()) {
+            template = restTemplate.withBasicAuth(authenticationWorld.getUsername(), authenticationWorld.getPassword());
+        }
+
+        Map<String, String> urlVariables = new HashMap<>();
+        urlVariables.put("page", String.valueOf(page));
+
+        ResponseEntity<String> response = template.getForEntity(USERS_ENDPOINT + "?page={page}", String.class, urlVariables);
+        usersWorld.saveResponse(response);
+    }
+
+    /**
      * Check if response status code is the expected.
      *
      * @param expectedStatusCode Expected status code.
@@ -135,5 +155,18 @@ public class QueryPageUsersSteps {
         String[] links = response.getHeaders().get(HttpHeaders.LINK).get(0).split(";");
 
         assertThat(links, hasItemInArray(containsString(link)));
+    }
+
+    @Then("^I should not get pagination links$")
+    public void i_should_not_get_pagination_links() {
+        ResponseEntity response = usersWorld.loadResponse();
+        List<String> links = response.getHeaders().get(HttpHeaders.LINK);
+
+        assertThat(links, nullValue());
+    }
+
+    @Then("^I should get an error response with the following attributes:$")
+    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) {
+
     }
 }
