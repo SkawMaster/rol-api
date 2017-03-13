@@ -39,6 +39,7 @@ public class TokenAuthenticationEntryPoint implements AuthenticationEntryPoint {
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+        response.reset();
         response.addHeader("WWW-Authenticate", "Basic realm=\"TOKEN_API\"");
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }

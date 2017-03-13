@@ -7,9 +7,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import es.esky.rol.Application;
+import es.esky.rol.arch.domain.ApiError;
 import es.esky.rol.integration.authentication.AuthenticationWorld;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.service.UsersService;
+import org.hamcrest.beans.HasPropertyWithValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -26,6 +28,7 @@ import java.util.Map;
 
 import static es.esky.rol.users.domain.builder.UserBuilder.user;
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertThat;
@@ -166,7 +169,13 @@ public class QueryPageUsersSteps {
     }
 
     @Then("^I should get an error response with the following attributes:$")
-    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) {
+    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
 
+        ApiError error = mapper.readValue(usersWorld.loadResponse().getBody(), ApiError.class);
+
+        for (String key : attributes.keySet()) {
+            assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
+        }
     }
 }

@@ -9,9 +9,6 @@ Feature: Query users resource.
   It should response empty list if not exist elements in this page.
   It should response pagination data of current page.
 
-  It should response an error 401 if I am not authenticate
-
-
   Background:
     Given An user ADMIN with password ADMIN
 

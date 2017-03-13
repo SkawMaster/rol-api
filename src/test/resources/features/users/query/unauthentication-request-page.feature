@@ -7,6 +7,5 @@ Feature: Send authentication error for unauthenticated users.
     When I get resource /users
     Then I should get a status code 401
     And I should get an error response with the following attributes:
-      | attribute | value                |
-      | code      | authentication_error |
-      | message   | message              |
+      | code    | unauthorized         |
+      | message | Authentication error |
