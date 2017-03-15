@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration.users;
+package es.esky.rol.integration.authentication;
 
-import es.esky.rol.users.domain.User;
-import org.springframework.core.ParameterizedTypeReference;
-
-import java.util.List;
+import cucumber.api.java.Before;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Encapsulate an {@link ParameterizedTypeReference} of type {@code List<User>}
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class ListUsersType extends ParameterizedTypeReference<List<User>> {
+@SuppressWarnings("SpringJavaAutowiringInspection")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration
+public class AuthenticationSetup {
 
-    /**
-     * Return {@link ListUsersType} with fluent code style.
-     *
-     * @return A new instance of {@link ListUsersType}
-     */
-    public static ListUsersType asListUsers() {
-        return new ListUsersType();
+    @Autowired
+    private AuthenticationWorld authenticationWorld;
+
+    @Before
+    public void setup() {
+        authenticationWorld.reset();
     }
 }

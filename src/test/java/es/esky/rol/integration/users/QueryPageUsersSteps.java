@@ -2,22 +2,19 @@ package es.esky.rol.integration.users;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import es.esky.rol.Application;
 import es.esky.rol.arch.domain.ApiError;
 import es.esky.rol.integration.authentication.AuthenticationWorld;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.service.UsersService;
-import org.hamcrest.beans.HasPropertyWithValue;
+import org.hamcrest.beans.HasProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
@@ -38,17 +35,14 @@ import static org.junit.Assert.assertThat;
  */
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(classes = Application.class)
+@ContextConfiguration
 public class QueryPageUsersSteps {
 
     public static final String USERS_ENDPOINT = "/users";
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
+    
     @Autowired
     private UsersWorld usersWorld;
 
@@ -57,18 +51,6 @@ public class QueryPageUsersSteps {
 
     @Autowired
     private UsersService usersService;
-
-    /**
-     * Initialize worlds for steps execution.
-     */
-    @Before
-    public void setup() {
-        usersWorld.reset();
-        authenticationWorld.reset();
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        jdbcTemplate.execute("TRUNCATE TABLE USERS");
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE");
-    }
 
     @Given("^An user (\\w+) with password (\\w+)$")
     public void an_user_with_password(String username, String password) {
@@ -152,14 +134,6 @@ public class QueryPageUsersSteps {
         assertThat(value, is(expectedValue));
     }
 
-    @Then("^I should get pagination (\\w+) link$")
-    public void i_should_get_pagination_link(String link) {
-        ResponseEntity response = usersWorld.loadResponse();
-        String[] links = response.getHeaders().get(HttpHeaders.LINK).get(0).split(";");
-
-        assertThat(links, hasItemInArray(containsString(link)));
-    }
-
     @Then("^I should not get pagination links$")
     public void i_should_not_get_pagination_links() {
         ResponseEntity response = usersWorld.loadResponse();
@@ -176,6 +150,28 @@ public class QueryPageUsersSteps {
 
         for (String key : attributes.keySet()) {
             assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
+        }
+    }
+
+    @Then("^I should get pagination links: (.*)$")
+    public void i_should_get_pagination_links(List<String> expectedLinks) {
+        ResponseEntity response = usersWorld.loadResponse();
+        String[] links = response.getHeaders().get(HttpHeaders.LINK).get(0).split(";");
+
+        for (String expectedLink : expectedLinks) {
+            assertThat(links, hasItemInArray(containsString(expectedLink)));
+        }
+    }
+
+    @Then("^I should get all users with the following properties: (.*)$")
+    public void i_should_get_all_users_with_the_following_properties(List<String> properties) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, User.class);
+        List<User> users = mapper.readValue(usersWorld.loadResponse().getBody(), type);
+
+        for (String property : properties) {
+            assertThat(users, everyItem(HasProperty.hasProperty(property)));
         }
     }
 }
