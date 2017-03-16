@@ -43,7 +43,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
  */
 @RestController
 @RequestMapping(value = UsersController.BASE_URL)
-class UsersController {
+public class UsersController {
     static final String BASE_URL = "/users";
 
     private final UsersService usersService;
