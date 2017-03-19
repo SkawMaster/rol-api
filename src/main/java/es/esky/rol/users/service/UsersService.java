@@ -35,4 +35,23 @@ public interface UsersService {
      * @return Users page.
      */
     Page<User> findByCriteria(Pageable page);
+
+    /**
+     * Find a user by its username
+     * <p>
+     * Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
+     * </p>
+     *
+     * @param username User username
+     * @return User
+     */
+    User findByUsername(String username);
+
+    /**
+     * Save a new user.
+     *
+     * @param user New user data.
+     * @return User after save it.
+     */
+    User save(User user);
 }

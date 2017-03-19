@@ -16,14 +16,18 @@
 
 package es.esky.rol.users.service.impl;
 
+import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.repository.UsersRepository;
 import es.esky.rol.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * JPA implementation of {@link UsersService}.
@@ -35,15 +39,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class JpaUsersService implements UsersService {
 
     private final UsersRepository usersRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Constructor of JpaUsersService
      *
      * @param usersRepository UsersRepository dependency.
+     * @param passwordEncoder PasswordEncoder dependency.
      */
     @Autowired
-    public JpaUsersService(UsersRepository usersRepository) {
+    public JpaUsersService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
         this.usersRepository = usersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -53,5 +60,25 @@ public class JpaUsersService implements UsersService {
     @Transactional(readOnly = true)
     public Page<User> findByCriteria(Pageable page) {
         return usersRepository.findAll(page);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public User findByUsername(String username) {
+        return Optional.ofNullable(usersRepository.findOne(username)).orElseThrow(UserNotFoundException::new);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Transactional
+    public User save(User user) {
+        String unHashedPassword = user.getPassword();
+        user.setPassword(passwordEncoder.encode(unHashedPassword));
+        return usersRepository.save(user);
     }
 }
