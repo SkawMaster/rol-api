@@ -14,35 +14,26 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration.users;
+package es.esky.rol.integration.authentication;
 
-import cucumber.api.java.Before;
+import cucumber.api.java.en.Given;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-@SuppressWarnings("SpringJavaAutowiringInspection")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration
-public class UsersSetup {
+@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+public class AuthenticationSteps {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private AuthenticationWorld authenticationWorld;
 
-    @Autowired
-    private UsersWorld usersWorld;
-
-    @Before
-    public void setup() {
-        usersWorld.reset();
-
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        jdbcTemplate.execute("TRUNCATE TABLE USERS");
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE");
+    /**
+     * Login a user with user and password credentials.
+     */
+    @Given("^I am authenticated as (\\w+) user with password (\\w+)$")
+    public void i_am_authenticate_as(String username, String password) {
+        authenticationWorld.saveCredentials(username, password);
     }
 }

@@ -17,18 +17,9 @@
 package es.esky.rol.integration;
 
 /**
- * Representation of data shared between steps.
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public interface World {
-
-    /**
-     * Clean a world.
-     * <p>
-     * Must be used each time start a new test.
-     * </p>
-     */
-    void reset();
+public interface WorldLifecycle {
+    default void before() {}
 }

@@ -14,28 +14,48 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration.users;
+package es.esky.rol.integration.http;
 
 import es.esky.rol.integration.WorldLifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
+ * Share users data between steps.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
-public class UsersWorld implements WorldLifecycle {
+public class HttpWorld implements WorldLifecycle {
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private ResponseEntity<String> pageUsersResponse;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void before() {
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
-        jdbcTemplate.execute("TRUNCATE TABLE USERS");
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE");
+        this.pageUsersResponse = null;
+    }
+
+    /**
+     * Save a response from API.
+     *
+     * @param response API Response.
+     */
+    public void saveResponse(ResponseEntity<String> response) {
+        this.pageUsersResponse = response;
+    }
+
+    /**
+     * Return an saved users page response.
+     *
+     * @return Saved users page response.
+     */
+    public ResponseEntity<String> loadResponse() {
+        return this.pageUsersResponse;
     }
 }
