@@ -16,19 +16,28 @@
 
 package es.esky.rol.integration;
 
+import cucumber.api.java.Before;
+import es.esky.rol.Application;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+
+import java.util.List;
+
 /**
- * Representation of data shared between steps.
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public interface World {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(classes = Application.class)
+public class LifecycleHook {
 
-    /**
-     * Clean a world.
-     * <p>
-     * Must be used each time start a new test.
-     * </p>
-     */
-    void reset();
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    @Autowired
+    private List<WorldLifecycle> worlds;
+
+    @Before
+    public void before() {
+        worlds.forEach(WorldLifecycle::before);
+    }
 }

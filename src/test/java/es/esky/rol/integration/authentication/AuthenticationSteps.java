@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration.users;
+package es.esky.rol.integration.authentication;
 
-import es.esky.rol.users.domain.User;
-import org.springframework.core.ParameterizedTypeReference;
-
-import java.util.List;
+import cucumber.api.java.en.Given;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Encapsulate an {@link ParameterizedTypeReference} of type {@code List<User>}
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class ListUsersType extends ParameterizedTypeReference<List<User>> {
+@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+public class AuthenticationSteps {
+
+    @Autowired
+    private AuthenticationWorld authenticationWorld;
 
     /**
-     * Return {@link ListUsersType} with fluent code style.
-     *
-     * @return A new instance of {@link ListUsersType}
+     * Login a user with user and password credentials.
      */
-    public static ListUsersType asListUsers() {
-        return new ListUsersType();
+    @Given("^I am authenticated as (\\w+) user with password (\\w+)$")
+    public void i_am_authenticate_as(String username, String password) {
+        authenticationWorld.saveCredentials(username, password);
     }
 }

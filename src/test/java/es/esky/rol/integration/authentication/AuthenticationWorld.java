@@ -16,7 +16,7 @@
 
 package es.esky.rol.integration.authentication;
 
-import es.esky.rol.integration.World;
+import es.esky.rol.integration.WorldLifecycle;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
-public class AuthenticationWorld implements World {
+public class AuthenticationWorld implements WorldLifecycle {
 
     private String username;
     private String password;
@@ -35,7 +35,7 @@ public class AuthenticationWorld implements World {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void before() {
         username = null;
         password = null;
     }
