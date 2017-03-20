@@ -37,6 +37,8 @@ import java.util.stream.Collectors;
  */
 public class PaginationUtils {
 
+    private PaginationUtils() {}
+
     /**
      * Build a page response with standards headers and without surround the content in an object.
      *
