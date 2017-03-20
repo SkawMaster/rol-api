@@ -21,7 +21,6 @@ import es.esky.rol.users.domain.User;
 import es.esky.rol.users.repository.UsersRepository;
 import es.esky.rol.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -77,31 +76,9 @@ public class JpaUsersService implements UsersService {
      */
     @Override
     @Transactional
-    public void deleteByUsername(String username) {
-        try {
-            usersRepository.delete(username);
-        } catch (EmptyResultDataAccessException e) {
-            throw new UserNotFoundException(e);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Transactional
     public User save(User user) {
         String unHashedPassword = user.getPassword();
         user.setPassword(passwordEncoder.encode(unHashedPassword));
         return usersRepository.save(user);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public boolean exists(String username) {
-        return usersRepository.exists(username);
     }
 }
