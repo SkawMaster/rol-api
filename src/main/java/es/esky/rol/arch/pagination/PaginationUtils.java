@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class PaginationUtils {
+public final class PaginationUtils {
 
     private PaginationUtils() {}
 
