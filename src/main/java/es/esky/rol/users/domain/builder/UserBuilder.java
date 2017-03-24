@@ -26,7 +26,7 @@ import es.esky.rol.users.domain.User;
  */
 public class UserBuilder {
 
-    private User user;
+    private final User user;
 
     private UserBuilder() {
         this.user = new User();

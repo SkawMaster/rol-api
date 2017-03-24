@@ -31,7 +31,7 @@ import java.util.Collection;
  */
 class CurrentUserDetails implements UserDetails {
 
-    private User userInfo;
+    private final User userInfo;
 
     /**
      * Construct a new CurrentUserDetails.

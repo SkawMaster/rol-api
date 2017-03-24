@@ -17,9 +17,7 @@
 package es.esky.rol.integration.http;
 
 import es.esky.rol.integration.WorldLifecycle;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**

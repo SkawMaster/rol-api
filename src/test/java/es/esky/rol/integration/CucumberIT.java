@@ -18,10 +18,7 @@ package es.esky.rol.integration;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
-import es.esky.rol.Application;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Cucumber integration tests loader.
