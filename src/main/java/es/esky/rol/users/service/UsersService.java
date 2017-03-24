@@ -48,28 +48,10 @@ public interface UsersService {
     User findByUsername(String username);
 
     /**
-     * Delete a user by its username.
-     * <p>
-     * Can throw a {@link es.esky.rol.users.api.exception.UserNotFoundException} if user not exist.
-     * </p>
-     *
-     * @param username User username
-     */
-    void deleteByUsername(String username);
-
-    /**
      * Save a new user.
      *
      * @param user New user data.
      * @return User after save it.
      */
     User save(User user);
-
-    /**
-     * Return if exist a user with the username.
-     *
-     * @param username User username
-     * @return True if exist, otherwise false.
-     */
-    boolean exists(String username);
 }

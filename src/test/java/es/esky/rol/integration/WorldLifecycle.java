@@ -16,20 +16,10 @@
 
 package es.esky.rol.integration;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
-import es.esky.rol.Application;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-
 /**
- * Cucumber integration tests loader.
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", format = "pretty", glue = "es.esky.rol")
-public class CucumberIT {
+public interface WorldLifecycle {
+    default void before() {}
 }

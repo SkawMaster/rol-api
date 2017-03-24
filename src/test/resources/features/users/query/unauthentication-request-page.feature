@@ -4,7 +4,7 @@ Feature: Send authentication error for unauthenticated users.
   Want obtain a authentication error response.
   
   Scenario: Query user list without authentication.
-    When I get resource /users
+    When I get resource "/users"
     Then I should get a status code 401
     And I should get an error response with the following attributes:
       | code    | unauthorized         |
