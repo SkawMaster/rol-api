@@ -21,7 +21,6 @@ import es.esky.rol.users.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,12 +52,11 @@ public class UsersController {
     /**
      * Find a page of users by a criteria.
      *
-     * @param page               Requested page.
-     * @param resourcesAssembler Link assembler.
+     * @param page Requested page.
      * @return Page requested.
      */
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Page<User> findByCriteria(Pageable page, PagedResourcesAssembler<User> resourcesAssembler) {
+    public Page<User> findByCriteria(Pageable page) {
         return usersService.findByCriteria(page);
     }
 }
