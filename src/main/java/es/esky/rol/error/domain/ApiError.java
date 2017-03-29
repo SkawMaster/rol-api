@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.esky.rol.arch.domain;
+package es.esky.rol.error.domain;
 
 import java.io.Serializable;
 

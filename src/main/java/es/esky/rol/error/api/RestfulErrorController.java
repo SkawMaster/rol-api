@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package es.esky.rol.error;
+package es.esky.rol.error.api;
 
-import es.esky.rol.arch.domain.ApiError;
+import es.esky.rol.error.domain.ApiError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;

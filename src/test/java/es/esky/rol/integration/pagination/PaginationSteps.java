@@ -18,7 +18,7 @@ package es.esky.rol.integration.pagination;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.en.Then;
-import es.esky.rol.arch.domain.ApiError;
+import es.esky.rol.error.domain.ApiError;
 import es.esky.rol.integration.http.HttpWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
