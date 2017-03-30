@@ -59,17 +59,6 @@ public class PaginationSteps {
         assertThat(links, nullValue());
     }
 
-    @Then("^I should get an error response with the following attributes:$")
-    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        ApiError error = mapper.readValue(httpWorld.loadResponse().getBody(), ApiError.class);
-
-        for (String key : attributes.keySet()) {
-            assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
-        }
-    }
-
     @Then("^I should get pagination links: (.*)$")
     public void i_should_get_pagination_links(List<String> expectedLinks) {
         ResponseEntity response = httpWorld.loadResponse();
