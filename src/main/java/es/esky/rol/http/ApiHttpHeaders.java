@@ -16,10 +16,12 @@
 
 package es.esky.rol.http;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class ApiHttpHeaders {
+public class ApiHttpHeaders extends HttpHeaders {
     public static final String TOTAL_COUNT = "X-Total-Count";
 }
