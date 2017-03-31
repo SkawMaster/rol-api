@@ -29,9 +29,9 @@ import java.util.Collection;
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-class CurrentUserDetails implements UserDetails {
+public class CurrentUserDetails implements UserDetails {
 
-    private User userInfo;
+    private final User userInfo;
 
     /**
      * Construct a new CurrentUserDetails.

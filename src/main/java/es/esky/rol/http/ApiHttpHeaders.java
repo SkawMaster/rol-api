@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-package es.esky.rol.integration;
+package es.esky.rol.http;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
+import org.springframework.http.HttpHeaders;
 
 /**
- * Cucumber integration tests loader.
- *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/features", format = "pretty", glue = "es.esky.rol")
-public class CucumberIT {
+public class ApiHttpHeaders extends HttpHeaders {
+    public static final String TOTAL_COUNT = "X-Total-Count";
 }

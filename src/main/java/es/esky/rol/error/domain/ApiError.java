@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.esky.rol.arch.domain;
+package es.esky.rol.error.domain;
 
 import java.io.Serializable;
 
@@ -51,7 +51,6 @@ public class ApiError implements Serializable {
     public String getMessage() {
         return message;
     }
-
 
     public void setMessage(String message) {
         this.message = message;

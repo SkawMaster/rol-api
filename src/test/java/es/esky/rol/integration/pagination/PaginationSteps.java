@@ -18,7 +18,7 @@ package es.esky.rol.integration.pagination;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.en.Then;
-import es.esky.rol.arch.domain.ApiError;
+import es.esky.rol.error.domain.ApiError;
 import es.esky.rol.integration.http.HttpWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -57,17 +57,6 @@ public class PaginationSteps {
         List<String> links = response.getHeaders().get(HttpHeaders.LINK);
 
         assertThat(links, nullValue());
-    }
-
-    @Then("^I should get an error response with the following attributes:$")
-    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-
-        ApiError error = mapper.readValue(httpWorld.loadResponse().getBody(), ApiError.class);
-
-        for (String key : attributes.keySet()) {
-            assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
-        }
     }
 
     @Then("^I should get pagination links: (.*)$")

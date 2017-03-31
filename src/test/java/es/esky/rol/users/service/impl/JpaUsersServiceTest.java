@@ -18,13 +18,11 @@ package es.esky.rol.users.service.impl;
 
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
-import es.esky.rol.users.domain.builder.UserBuilder;
 import es.esky.rol.users.repository.UsersRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
