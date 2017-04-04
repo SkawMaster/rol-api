@@ -20,6 +20,8 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * @author Cristian Mateos López
@@ -28,6 +30,15 @@ import static org.junit.Assert.assertThat;
 public class LowercaseValidatorTest {
 
     private static final LowercaseValidator validator = new LowercaseValidator();
+
+    @Test
+    public void initialize_DoNothing() {
+        Lowercase lowercase = mock(Lowercase.class);
+
+        validator.initialize(lowercase);
+
+        verifyZeroInteractions(lowercase);
+    }
 
     @Test
     public void isValid_StringWithLowerCharacters_ReturnTrue() throws Exception {
