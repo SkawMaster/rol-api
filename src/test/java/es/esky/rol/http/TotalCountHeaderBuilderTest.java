@@ -14,16 +14,30 @@
  * limitations under the License.
  */
 
-package es.esky.rol.pagination.service;
+package es.esky.rol.http;
 
+import org.junit.Test;
+import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.web.util.UriComponentsBuilder;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.*;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public interface PaginationService {
-    String buildHttpHeaderLinks(UriComponentsBuilder builder, Page<?> page);
+public class TotalCountHeaderBuilderTest {
+
+    private final static TotalCountHeaderBuilder totalCountHeaderBuilder = new TotalCountHeaderBuilder();
+
+    @Test
+    public void buildFromPage_ReturnTotalElementsOfPage() {
+        Page<?> page = Mockito.mock(Page.class);
+        Mockito.when(page.getTotalElements()).thenReturn(11L);
+
+        String header = totalCountHeaderBuilder.buildFromPage(page);
+
+        assertThat(header, equalTo("11"));
+    }
 }

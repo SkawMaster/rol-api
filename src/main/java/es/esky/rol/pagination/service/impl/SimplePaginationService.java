@@ -16,10 +16,11 @@
 
 package es.esky.rol.pagination.service.impl;
 
+import es.esky.rol.http.LinkHeaderBuilder;
 import es.esky.rol.pagination.service.PaginationService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,39 +34,35 @@ import java.util.List;
 @Service
 public class SimplePaginationService implements PaginationService {
 
-    public static final String LINK_STANDARD_FMT = "<%s>; rel=\"%s\"";
-    public static final String QUERY_PARAM_PAGE = "page";
-    public static final String LINK_HEADER_FIRST = "first";
-    public static final String LINK_HEADER_PREVIOUS = "prev";
-    public static final String LINK_HEADER_NEXT = "next";
-    public static final String LINK_HEADER_LAST = "last";
+    private LinkHeaderBuilder linkHeaderBuilder;
+
+    @Autowired
+    public SimplePaginationService(LinkHeaderBuilder linkHeaderBuilder) {
+        this.linkHeaderBuilder = linkHeaderBuilder;
+    }
 
     @Override
-    public String buildHttpHeaderLinks(ServerHttpRequest request, Page<?> page) {
+    public String buildHttpHeaderLinks(UriComponentsBuilder builder, Page<?> page) {
         List<String> headerLinks = new ArrayList<>();
 
         if (!page.isFirst()) {
-            headerLinks.add(String.format(LINK_STANDARD_FMT, UriComponentsBuilder.fromHttpRequest(request)
-                    .replaceQueryParam(QUERY_PARAM_PAGE, 0)
-                    .build(), LINK_HEADER_FIRST));
+            String link = linkHeaderBuilder.first(builder);
+            headerLinks.add(link);
         }
 
         if (page.hasPrevious()) {
-            headerLinks.add(String.format(LINK_STANDARD_FMT, UriComponentsBuilder.fromHttpRequest(request)
-                    .replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber())
-                    .build(), LINK_HEADER_PREVIOUS));
+            String link = linkHeaderBuilder.prev(builder, page);
+            headerLinks.add(link);
         }
 
         if (page.hasNext()) {
-            headerLinks.add(String.format(LINK_STANDARD_FMT, UriComponentsBuilder.fromHttpRequest(request)
-                    .replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber())
-                    .build(), LINK_HEADER_NEXT));
+            String link = linkHeaderBuilder.next(builder, page);
+            headerLinks.add(link);
         }
 
         if (!page.isLast()) {
-            headerLinks.add(String.format(LINK_STANDARD_FMT, UriComponentsBuilder.fromHttpRequest(request)
-                    .replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1)
-                    .build(), LINK_HEADER_LAST));
+            String link = linkHeaderBuilder.last(builder, page);
+            headerLinks.add(link);
         }
 
         return StringUtils.join(headerLinks, ", ");

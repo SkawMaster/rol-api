@@ -17,6 +17,7 @@
 package es.esky.rol.pagination.api.controller;
 
 import es.esky.rol.http.ApiHttpHeaders;
+import es.esky.rol.http.TotalCountHeaderBuilder;
 import es.esky.rol.pagination.service.PaginationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -28,15 +29,18 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMappingJacksonResponseBodyAdvice;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @ControllerAdvice
 public class PaginationController extends AbstractMappingJacksonResponseBodyAdvice {
 
     private PaginationService paginationService;
+    private TotalCountHeaderBuilder totalCountHeaderBuilder;
 
     @Autowired
-    public PaginationController(PaginationService paginationService) {
+    public PaginationController(PaginationService paginationService, TotalCountHeaderBuilder totalCountHeaderBuilder) {
         this.paginationService = paginationService;
+        this.totalCountHeaderBuilder = totalCountHeaderBuilder;
     }
 
     @Override
@@ -45,10 +49,12 @@ public class PaginationController extends AbstractMappingJacksonResponseBodyAdvi
                                            MethodParameter methodParameter,
                                            ServerHttpRequest request,
                                            ServerHttpResponse response) {
+        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpRequest(request);
+
         Page<?> page = (Page<?>) value.getValue();
 
-        response.getHeaders().add(ApiHttpHeaders.TOTAL_COUNT, String.valueOf(page.getTotalElements()));
-        response.getHeaders().add(ApiHttpHeaders.LINK, paginationService.buildHttpHeaderLinks(request, page));
+        response.getHeaders().add(ApiHttpHeaders.TOTAL_COUNT, totalCountHeaderBuilder.buildFromPage(page));
+        response.getHeaders().add(ApiHttpHeaders.LINK, paginationService.buildHttpHeaderLinks(uriComponentsBuilder, page));
 
         value.setValue(page.getContent());
     }
