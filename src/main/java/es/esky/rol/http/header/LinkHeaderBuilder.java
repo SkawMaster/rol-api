@@ -14,30 +14,15 @@
  * limitations under the License.
  */
 
-package es.esky.rol.http;
+package es.esky.rol.http.header;
 
-import org.junit.Test;
-import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import org.springframework.http.HttpHeaders;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class TotalCountHeaderBuilderTest {
-
-    private final static TotalCountHeaderBuilder totalCountHeaderBuilder = new TotalCountHeaderBuilder();
-
-    @Test
-    public void buildFromPage_ReturnTotalElementsOfPage() {
-        Page<?> page = Mockito.mock(Page.class);
-        Mockito.when(page.getTotalElements()).thenReturn(11L);
-
-        String header = totalCountHeaderBuilder.buildFromPage(page);
-
-        assertThat(header, equalTo("11"));
-    }
+public interface LinkHeaderBuilder {
+    HttpHeaders buildFrom(Page<?> page);
 }

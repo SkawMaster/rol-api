@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package es.esky.rol.pagination.api.controller;
+package es.esky.rol.pagination.advice;
 
-import es.esky.rol.http.ApiHttpHeaders;
-import es.esky.rol.http.TotalCountHeaderBuilder;
-import es.esky.rol.pagination.service.PaginationService;
+import es.esky.rol.pagination.PaginationHeadersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -29,18 +28,15 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMappingJacksonResponseBodyAdvice;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @ControllerAdvice
 public class PaginationController extends AbstractMappingJacksonResponseBodyAdvice {
 
-    private PaginationService paginationService;
-    private TotalCountHeaderBuilder totalCountHeaderBuilder;
+    private PaginationHeadersBuilder paginationHeadersBuilder;
 
     @Autowired
-    public PaginationController(PaginationService paginationService, TotalCountHeaderBuilder totalCountHeaderBuilder) {
-        this.paginationService = paginationService;
-        this.totalCountHeaderBuilder = totalCountHeaderBuilder;
+    public PaginationController(PaginationHeadersBuilder paginationHeadersBuilder) {
+        this.paginationHeadersBuilder = paginationHeadersBuilder;
     }
 
     @Override
@@ -49,12 +45,10 @@ public class PaginationController extends AbstractMappingJacksonResponseBodyAdvi
                                            MethodParameter methodParameter,
                                            ServerHttpRequest request,
                                            ServerHttpResponse response) {
-        UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpRequest(request);
-
         Page<?> page = (Page<?>) value.getValue();
 
-        response.getHeaders().add(ApiHttpHeaders.TOTAL_COUNT, totalCountHeaderBuilder.buildFromPage(page));
-        response.getHeaders().add(ApiHttpHeaders.LINK, paginationService.buildHttpHeaderLinks(uriComponentsBuilder, page));
+        HttpHeaders paginationHeaders = paginationHeadersBuilder.buildFrom(page);
+        response.getHeaders().putAll(paginationHeaders);
 
         value.setValue(page.getContent());
     }

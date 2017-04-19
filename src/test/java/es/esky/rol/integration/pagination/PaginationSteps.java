@@ -62,10 +62,11 @@ public class PaginationSteps {
     @Then("^I should get pagination links: (.*)$")
     public void i_should_get_pagination_links(List<String> expectedLinks) {
         ResponseEntity response = httpWorld.loadResponse();
-        String[] links = response.getHeaders().get(HttpHeaders.LINK).get(0).split(";");
+        List<String> links = response.getHeaders().get(HttpHeaders.LINK);
 
         for (String expectedLink : expectedLinks) {
-            assertThat(links, hasItemInArray(containsString(expectedLink)));
+            String expected = "rel=\"" + expectedLink + "\"";
+            assertThat(links, hasItem(containsString(expected)));
         }
     }
 }

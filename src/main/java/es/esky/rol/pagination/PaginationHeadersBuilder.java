@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package es.esky.rol.http;
+package es.esky.rol.pagination;
 
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
+import org.springframework.http.HttpHeaders;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-@Component
-public class TotalCountHeaderBuilder {
-    public String buildFromPage(Page<?> page) {
-        return String.valueOf(page.getTotalElements());
-    }
+public interface PaginationHeadersBuilder {
+    HttpHeaders buildFrom(Page<?> page);
 }

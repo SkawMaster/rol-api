@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package es.esky.rol.pagination.api.controller;
+package es.esky.rol.pagination.advice;
 
 import es.esky.rol.http.ApiHttpHeaders;
-import es.esky.rol.http.TotalCountHeaderBuilder;
-import es.esky.rol.pagination.service.PaginationService;
+import es.esky.rol.pagination.PaginationHeadersBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,18 +30,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.lang.reflect.Method;
-import java.net.URI;
 
-import static java.util.Collections.singletonList;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PaginationControllerTest {
@@ -54,10 +49,7 @@ public class PaginationControllerTest {
     private PaginationController paginationController;
 
     @Mock
-    private PaginationService paginationService;
-
-    @Mock
-    private TotalCountHeaderBuilder totalCountHeaderBuilder;
+    private PaginationHeadersBuilder paginationHeadersBuilder;
 
     @Before
     public void setup() throws NoSuchMethodException {
@@ -67,28 +59,20 @@ public class PaginationControllerTest {
 
     @Test
     public void beforeBodyWriteInternal_WriteHeaderPaginationData() {
-        final String expectedTotalCount = "11";
-        final String expectedLink = "dummy";
+        final HttpHeaders expectedHeaders = new ApiHttpHeaders();
 
         Page<?> samplePage = mock(Page.class);
         ServerHttpResponse response = mock(ServerHttpResponse.class);
-        ServerHttpRequest request = mock(ServerHttpRequest.class);
 
         MappingJacksonValue value = new MappingJacksonValue(samplePage);
         HttpHeaders headers = new HttpHeaders();
 
-        when(paginationService.buildHttpHeaderLinks(any(UriComponentsBuilder.class), eq(samplePage))).thenReturn(expectedLink);
+        when(paginationHeadersBuilder.buildFrom(samplePage)).thenReturn(expectedHeaders);
         when(response.getHeaders()).thenReturn(headers);
-        when(request.getURI()).thenReturn(URI.create("http://www.dummy.dum/"));
-        when(request.getHeaders()).thenReturn(headers);
-        when(totalCountHeaderBuilder.buildFromPage(samplePage)).thenReturn(expectedTotalCount);
 
-        paginationController.beforeBodyWriteInternal(value, null, null, request, response);
+        paginationController.beforeBodyWriteInternal(value, null, null, null, response);
 
-        assertThat(headers, hasKey(ApiHttpHeaders.LINK));
-        assertThat(headers, hasKey(ApiHttpHeaders.TOTAL_COUNT));
-        assertThat(headers.get(ApiHttpHeaders.LINK), equalTo(singletonList(expectedLink)));
-        assertThat(headers.get(ApiHttpHeaders.TOTAL_COUNT), equalTo(singletonList(expectedTotalCount)));
+        assertThat(headers, equalTo(expectedHeaders));
     }
 
     @Test
