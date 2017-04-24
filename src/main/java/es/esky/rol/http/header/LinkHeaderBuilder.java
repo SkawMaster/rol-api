@@ -17,12 +17,14 @@
 package es.esky.rol.http.header;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface LinkHeaderBuilder {
-    HttpHeaders buildFrom(Page<?> page);
+    String buildFirst();
+    String buildNext(Page<?> page);
+    String buildLast(Page<?> page);
+    String buildPrev(Page<?> page);
 }

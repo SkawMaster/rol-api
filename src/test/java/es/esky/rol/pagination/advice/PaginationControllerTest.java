@@ -16,8 +16,8 @@
 
 package es.esky.rol.pagination.advice;
 
-import es.esky.rol.http.ApiHttpHeaders;
 import es.esky.rol.pagination.PaginationHeadersBuilder;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +38,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PaginationControllerTest {
@@ -59,20 +61,18 @@ public class PaginationControllerTest {
 
     @Test
     public void beforeBodyWriteInternal_WriteHeaderPaginationData() {
-        final HttpHeaders expectedHeaders = new ApiHttpHeaders();
-
         Page<?> samplePage = mock(Page.class);
         ServerHttpResponse response = mock(ServerHttpResponse.class);
 
         MappingJacksonValue value = new MappingJacksonValue(samplePage);
         HttpHeaders headers = new HttpHeaders();
 
-        when(paginationHeadersBuilder.buildFrom(samplePage)).thenReturn(expectedHeaders);
+        when(paginationHeadersBuilder.addPaginationData(headers, samplePage)).thenReturn(headers);
         when(response.getHeaders()).thenReturn(headers);
 
         paginationController.beforeBodyWriteInternal(value, null, null, null, response);
 
-        assertThat(headers, equalTo(expectedHeaders));
+        verify(paginationHeadersBuilder, times(1)).addPaginationData(headers, samplePage);
     }
 
     @Test

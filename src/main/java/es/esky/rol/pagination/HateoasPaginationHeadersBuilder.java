@@ -16,8 +16,10 @@
 
 package es.esky.rol.pagination;
 
+import es.esky.rol.http.ApiHttpHeaders;
 import es.esky.rol.http.header.LinkHeaderBuilder;
 import es.esky.rol.http.header.TotalCountHeaderBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -38,14 +40,27 @@ public class HateoasPaginationHeadersBuilder implements PaginationHeadersBuilder
         this.linkHeaderBuilder = linkHeaderBuilder;
         this.totalCountHeaderBuilder = totalCountHeaderBuilder;
     }
-
+    
     @Override
-    public HttpHeaders buildFrom(Page<?> page) {
-        HttpHeaders headers = new HttpHeaders();
+    public HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page) {
+        headers.add(ApiHttpHeaders.TOTAL_COUNT, totalCountHeaderBuilder.buildTotal(page));
 
-        headers.putAll(linkHeaderBuilder.buildFrom(page));
-        headers.putAll(totalCountHeaderBuilder.buildFrom(page));
+        if (!page.isFirst()) {
+            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildFirst());
+        }
 
+        if (!page.isLast()) {
+            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildLast(page));
+        }
+
+        if (page.hasPrevious()) {
+            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildPrev(page));
+        }
+
+        if (page.hasNext()) {
+            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildNext(page));
+        }
+        
         return headers;
     }
 }

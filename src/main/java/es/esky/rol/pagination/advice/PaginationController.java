@@ -20,7 +20,6 @@ import es.esky.rol.pagination.PaginationHeadersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -47,8 +46,7 @@ public class PaginationController extends AbstractMappingJacksonResponseBodyAdvi
                                            ServerHttpResponse response) {
         Page<?> page = (Page<?>) value.getValue();
 
-        HttpHeaders paginationHeaders = paginationHeadersBuilder.buildFrom(page);
-        response.getHeaders().putAll(paginationHeaders);
+        paginationHeadersBuilder.addPaginationData(response.getHeaders(), page);
 
         value.setValue(page.getContent());
     }

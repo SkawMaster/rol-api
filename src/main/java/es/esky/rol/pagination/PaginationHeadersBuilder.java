@@ -24,5 +24,5 @@ import org.springframework.http.HttpHeaders;
  * @since 1.0.0
  */
 public interface PaginationHeadersBuilder {
-    HttpHeaders buildFrom(Page<?> page);
+    HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page);
 }

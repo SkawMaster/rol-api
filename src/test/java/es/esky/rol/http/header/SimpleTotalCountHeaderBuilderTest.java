@@ -16,17 +16,12 @@
 
 package es.esky.rol.http.header;
 
-import es.esky.rol.http.ApiHttpHeaders;
 import es.esky.rol.http.header.SimpleTotalCountHeaderBuilder;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.Matchers.hasKey;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.*;
 
 /**
@@ -39,13 +34,13 @@ public class SimpleTotalCountHeaderBuilderTest {
 
     @Test
     public void buildFromPage_ReturnCorrectlyHttpHeader() {
+        final String expectedTotal = "11";
+        
         Page<?> page = Mockito.mock(Page.class);
         Mockito.when(page.getTotalElements()).thenReturn(11L);
 
-        HttpHeaders header = totalCountHeaderBuilder.buildFrom(page);
+        String total = totalCountHeaderBuilder.buildTotal(page);
 
-        assertThat(header, Matchers.hasKey(ApiHttpHeaders.TOTAL_COUNT));
-        assertThat(header.get(ApiHttpHeaders.TOTAL_COUNT), hasSize(1));
-        assertThat(header.get(ApiHttpHeaders.TOTAL_COUNT), hasItem("11"));
+        assertThat(total, equalTo(expectedTotal));
     }
 }

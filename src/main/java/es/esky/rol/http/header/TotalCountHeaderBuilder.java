@@ -17,12 +17,11 @@
 package es.esky.rol.http.header;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface TotalCountHeaderBuilder {
-    HttpHeaders buildFrom(Page<?> page);
+    String buildTotal(Page<?> page);
 }

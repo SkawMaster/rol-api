@@ -16,12 +16,10 @@
 
 package es.esky.rol.http.header;
 
-import es.esky.rol.http.ApiHttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -50,55 +48,32 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
     public HateoasLinkHeaderBuilder(@SuppressWarnings("SpringJavaAutowiringInspection") HttpServletRequest request) {
         builder = ServletUriComponentsBuilder.fromRequest(request);
     }
-
+    
     @Override
-    public HttpHeaders buildFrom(Page<?> page) {
-        ApiHttpHeaders headers = new ApiHttpHeaders();
-
-        if (!page.isFirst()) {
-            String link = first();
-            headers.add(ApiHttpHeaders.LINK, link);
-        }
-
-        if (!page.isLast()) {
-            String link = last(page);
-            headers.add(ApiHttpHeaders.LINK, link);
-        }
-
-        if (page.hasPrevious()) {
-            String link = prev(page);
-            headers.add(ApiHttpHeaders.LINK, link);
-        }
-
-        if (page.hasNext()) {
-            String link = next(page);
-            headers.add(ApiHttpHeaders.LINK, link);
-        }
-
-        return headers;
+    public String buildFirst() {
+        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, 0).build();
+        return buildLink(components, LINK_HEADER_FIRST);
+    }
+    
+    @Override
+    public String buildLast(final Page<?> page) {
+        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
+        return buildLink(components, LINK_HEADER_LAST);
+    }
+    
+    @Override
+    public String buildNext(final Page<?> page) {
+        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber()).build();
+        return buildLink(components, LINK_HEADER_NEXT);
+    }
+    
+    @Override
+    public String buildPrev(final Page<?> page) {
+        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
+        return buildLink(components, LINK_HEADER_PREVIOUS);
     }
 
-    private String first() {
-        UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, 0).build();
-        return buildLinkHeader(components, LINK_HEADER_FIRST);
-    }
-
-    private String prev(Page<?> page) {
-        UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber()).build();
-        return buildLinkHeader(components, LINK_HEADER_PREVIOUS);
-    }
-
-    private String next(Page<?> page) {
-        UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber()).build();
-        return buildLinkHeader(components, LINK_HEADER_NEXT);
-    }
-
-    private String last(Page<?> page) {
-        UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
-        return buildLinkHeader(components, LINK_HEADER_LAST);
-    }
-
-    private String buildLinkHeader(UriComponents components, String header) {
+    private String buildLink(final UriComponents components, final String header) {
         return String.format(LINK_STANDARD_FMT, components, header);
     }
 }

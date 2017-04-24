@@ -16,9 +16,7 @@
 
 package es.esky.rol.http.header;
 
-import es.esky.rol.http.ApiHttpHeaders;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,13 +25,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class SimpleTotalCountHeaderBuilder implements TotalCountHeaderBuilder {
+    
     @Override
-    public HttpHeaders buildFrom(Page<?> page) {
-        HttpHeaders headers = new ApiHttpHeaders();
-
-        String value = String.valueOf(page.getTotalElements());
-        headers.add(ApiHttpHeaders.TOTAL_COUNT, value);
-
-        return headers;
+    public String buildTotal(Page<?> page) {
+        return String.valueOf(page.getTotalElements());
     }
 }
