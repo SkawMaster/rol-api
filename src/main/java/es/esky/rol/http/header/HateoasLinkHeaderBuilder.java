@@ -35,7 +35,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
     private static final String LINK_HEADER_NEXT = "next";
     private static final String LINK_HEADER_LAST = "last";
 
-    private UriComponentsBuilder builder;
+    private final UriComponentsBuilder builder;
 
     @Autowired
     public HateoasLinkHeaderBuilder(UriComponentsBuilder builder) {
@@ -62,7 +62,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
     
     @Override
     public String buildPrev(final Page<?> page) {
-        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
+        final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber()).build();
         return buildLink(components, LINK_HEADER_PREVIOUS);
     }
 

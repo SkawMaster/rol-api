@@ -16,8 +16,6 @@
 
 package es.esky.rol;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,10 +51,10 @@ public class Application {
     public ErrorProperties errorProperties(ServerProperties serverProperties) {
         return serverProperties.getError();
     }
-    
+
     @Bean
-    @Scope(value=WebApplicationContext.SCOPE_REQUEST, proxyMode=ScopedProxyMode.TARGET_CLASS)
-    public UriComponentsBuilder uriComponentsBuilder(HttpServletRequest request) {
-        return ServletUriComponentsBuilder.fromRequest(request);
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public UriComponentsBuilder uriComponentsBuilder() {
+        return ServletUriComponentsBuilder.fromCurrentRequest();
     }
 }

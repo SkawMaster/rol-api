@@ -32,8 +32,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class HateoasPaginationHeadersBuilder implements PaginationHeadersBuilder {
 
-    private LinkHeaderBuilder linkHeaderBuilder;
-    private TotalCountHeaderBuilder totalCountHeaderBuilder;
+    private final LinkHeaderBuilder linkHeaderBuilder;
+    private final TotalCountHeaderBuilder totalCountHeaderBuilder;
 
     @Autowired
     public HateoasPaginationHeadersBuilder(LinkHeaderBuilder linkHeaderBuilder, TotalCountHeaderBuilder totalCountHeaderBuilder) {

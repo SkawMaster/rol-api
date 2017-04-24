@@ -31,7 +31,7 @@ import org.springframework.web.servlet.mvc.method.annotation.AbstractMappingJack
 @ControllerAdvice
 public class PaginationController extends AbstractMappingJacksonResponseBodyAdvice {
 
-    private PaginationHeadersBuilder paginationHeadersBuilder;
+    private final PaginationHeadersBuilder paginationHeadersBuilder;
 
     @Autowired
     public PaginationController(PaginationHeadersBuilder paginationHeadersBuilder) {

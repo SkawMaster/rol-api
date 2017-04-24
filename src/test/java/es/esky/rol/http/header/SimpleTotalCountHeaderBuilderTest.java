@@ -16,13 +16,12 @@
 
 package es.esky.rol.http.header;
 
-import es.esky.rol.http.header.SimpleTotalCountHeaderBuilder;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Cristian Mateos López
@@ -35,7 +34,7 @@ public class SimpleTotalCountHeaderBuilderTest {
     @Test
     public void buildTotal_ReturnTotalElements() {
         final String expectedTotal = "11";
-        
+
         Page<?> page = Mockito.mock(Page.class);
         Mockito.when(page.getTotalElements()).thenReturn(11L);
 

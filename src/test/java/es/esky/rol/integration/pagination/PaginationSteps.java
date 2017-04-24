@@ -16,21 +16,15 @@
 
 package es.esky.rol.integration.pagination;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import cucumber.api.java.en.Then;
-import es.esky.rol.error.domain.ApiError;
 import es.esky.rol.integration.http.HttpWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
-import static org.hamcrest.collection.IsArrayContaining.hasItemInArray;
 import static org.junit.Assert.assertThat;
 
 /**
