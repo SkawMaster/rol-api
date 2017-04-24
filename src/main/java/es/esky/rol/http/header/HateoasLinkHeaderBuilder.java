@@ -17,23 +17,16 @@
 package es.esky.rol.http.header;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
-@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
     private static final String LINK_STANDARD_FMT = "<%s>; rel=\"%s\"";
     private static final String QUERY_PARAM_PAGE = "page";
@@ -45,8 +38,8 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
     private UriComponentsBuilder builder;
 
     @Autowired
-    public HateoasLinkHeaderBuilder(@SuppressWarnings("SpringJavaAutowiringInspection") HttpServletRequest request) {
-        builder = ServletUriComponentsBuilder.fromRequest(request);
+    public HateoasLinkHeaderBuilder(UriComponentsBuilder builder) {
+        this.builder = builder;
     }
     
     @Override

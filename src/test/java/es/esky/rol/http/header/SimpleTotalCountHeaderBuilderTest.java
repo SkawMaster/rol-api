@@ -33,7 +33,7 @@ public class SimpleTotalCountHeaderBuilderTest {
     private final static SimpleTotalCountHeaderBuilder totalCountHeaderBuilder = new SimpleTotalCountHeaderBuilder();
 
     @Test
-    public void buildFromPage_ReturnCorrectlyHttpHeader() {
+    public void buildTotal_ReturnTotalElements() {
         final String expectedTotal = "11";
         
         Page<?> page = Mockito.mock(Page.class);
