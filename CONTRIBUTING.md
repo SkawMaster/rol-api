@@ -6,4 +6,4 @@ This project adheres to the Contributor Covenant code of conduct. By participati
 
 ### Understand the basics
 
-Not sure what a pull request is, or how to submit one? Take a look at GitHub's excellent [help documentation][] first.
+Not sure what a pull request is, or how to submit one? Take a look at GitHub's excellent [help documentation][https://help.github.com/categories/collaborating-with-issues-and-pull-requests/] first.
