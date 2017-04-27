@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package es.esky.rol.pagination.api.controller;
+package es.esky.rol.pagination.advice;
 
-import es.esky.rol.http.ApiHttpHeaders;
-import es.esky.rol.pagination.service.PaginationService;
+import es.esky.rol.pagination.PaginationHeadersBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonValue;
@@ -33,11 +31,11 @@ import org.springframework.web.servlet.mvc.method.annotation.AbstractMappingJack
 @ControllerAdvice
 public class PaginationController extends AbstractMappingJacksonResponseBodyAdvice {
 
-    private PaginationService paginationService;
+    private final PaginationHeadersBuilder paginationHeadersBuilder;
 
     @Autowired
-    public PaginationController(PaginationService paginationService) {
-        this.paginationService = paginationService;
+    public PaginationController(PaginationHeadersBuilder paginationHeadersBuilder) {
+        this.paginationHeadersBuilder = paginationHeadersBuilder;
     }
 
     @Override
@@ -48,8 +46,7 @@ public class PaginationController extends AbstractMappingJacksonResponseBodyAdvi
                                            ServerHttpResponse response) {
         Page<?> page = (Page<?>) value.getValue();
 
-        response.getHeaders().add(ApiHttpHeaders.TOTAL_COUNT, String.valueOf(page.getTotalElements()));
-        response.getHeaders().add(HttpHeaders.LINK, paginationService.buildHttpHeaderLinks(request, page));
+        paginationHeadersBuilder.addPaginationData(response.getHeaders(), page);
 
         value.setValue(page.getContent());
     }

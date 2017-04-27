@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package es.esky.rol.users.service.impl;
+package es.esky.rol.users.service;
 
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.repository.UsersRepository;
-import es.esky.rol.users.service.UsersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

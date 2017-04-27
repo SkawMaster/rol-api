@@ -23,9 +23,6 @@ import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
@@ -46,7 +43,7 @@ public class RestfulErrorController implements ErrorController {
     }
 
     @RequestMapping("${server.error.path:${error.path:/error}}")
-    public ApiError error(HttpServletRequest request, HttpServletResponse response) {
+    public ApiError error() {
         ApiError error = new ApiError();
         error.setCode("unauthorized");
         error.setMessage("Authentication error");

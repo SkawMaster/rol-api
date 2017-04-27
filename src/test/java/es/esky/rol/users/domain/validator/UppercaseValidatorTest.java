@@ -20,6 +20,8 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyZeroInteractions;
 
 /**
  * @author Cristian Mateos López
@@ -30,7 +32,16 @@ public class UppercaseValidatorTest {
     private static final UppercaseValidator validator = new UppercaseValidator();
 
     @Test
-    public void isValid_StringWithUpperCharacters_ReturnTrue() throws Exception {
+    public void initialize_DoNothing() {
+        Uppercase uppercase = mock(Uppercase.class);
+
+        validator.initialize(uppercase);
+
+        verifyZeroInteractions(uppercase);
+    }
+
+    @Test
+    public void isValid_StringWithUpperCharacters_ReturnTrue() {
         final String validString = "Aaa";
 
         boolean isValid = validator.isValid(validString, null);
@@ -39,7 +50,7 @@ public class UppercaseValidatorTest {
     }
 
     @Test
-    public void isValid_StringWithoutUpperCharacters_ReturnTrue() throws Exception {
+    public void isValid_StringWithoutUpperCharacters_ReturnTrue() {
         final String invalidString = "aaa";
 
         boolean isValid = validator.isValid(invalidString, null);

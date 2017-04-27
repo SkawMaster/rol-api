@@ -22,6 +22,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Api entry point class.
@@ -45,5 +50,11 @@ public class Application {
     @Bean
     public ErrorProperties errorProperties(ServerProperties serverProperties) {
         return serverProperties.getError();
+    }
+
+    @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public UriComponentsBuilder uriComponentsBuilder() {
+        return ServletUriComponentsBuilder.fromCurrentRequest();
     }
 }

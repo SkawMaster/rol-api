@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package es.esky.rol.pagination.service;
+package es.esky.rol.http.header;
 
 import org.springframework.data.domain.Page;
-import org.springframework.http.server.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public interface PaginationService {
-    String buildHttpHeaderLinks(ServerHttpRequest request, Page<?> page);
+@Component
+public class SimpleTotalCountHeaderBuilder implements TotalCountHeaderBuilder {
+    
+    @Override
+    public String buildTotal(Page<?> page) {
+        return String.valueOf(page.getTotalElements());
+    }
 }
