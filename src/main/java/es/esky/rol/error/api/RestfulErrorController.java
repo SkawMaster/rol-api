@@ -16,37 +16,65 @@
 
 package es.esky.rol.error.api;
 
-import es.esky.rol.error.domain.ApiError;
+import javax.validation.constraints.NotNull;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.esky.rol.error.domain.ApiError;
+
 /**
+ * Transform undefined server errors to {@link ApiError} model.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @RestController
 public class RestfulErrorController implements ErrorController {
 
-    private final ErrorProperties errorProperties;
+	private static final Logger LOGGER = LoggerFactory.getLogger(RestfulErrorController.class);
 
-    @Autowired
-    public RestfulErrorController(ErrorProperties errorProperties) {
-        this.errorProperties = errorProperties;
-    }
+	private final ErrorProperties errorProperties;
 
-    @Override
-    public String getErrorPath() {
-        return this.errorProperties.getPath();
-    }
+	/**
+	 * Construct the controller with the current server error properties.
+	 *
+	 * @param errorProperties Api error properties.
+	 */
+	@Autowired
+	public RestfulErrorController(@NotNull ErrorProperties errorProperties) {
+		Assert.notNull(errorProperties);
+		this.errorProperties = errorProperties;
+	}
 
-    @RequestMapping("${server.error.path:${error.path:/error}}")
-    public ApiError error() {
-        ApiError error = new ApiError();
-        error.setCode("unauthorized");
-        error.setMessage("Authentication error");
-        return error;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getErrorPath() {
+		return this.errorProperties.getPath();
+	}
+
+	/**
+	 * Catch an undefined server error and map it to {@link ApiError} model.
+	 *
+	 * @return Error mapped to {@link ApiError} model.
+	 */
+	@RequestMapping("${server.error.path:${error.path:/error}}")
+	public ApiError catchError() {
+		// TODO: get error info of current request and response.
+		ApiError error = new ApiError();
+		error.setCode("unauthorized");
+		error.setMessage("Authentication error");
+
+		LOGGER.info("Api error throw with value {}", error);
+
+		return error;
+	}
 }

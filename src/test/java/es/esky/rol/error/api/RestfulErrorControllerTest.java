@@ -24,35 +24,36 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 
 import es.esky.rol.error.domain.ApiError;
-import static org.mockito.Mockito.when;
-import static org.junit.Assert.assertThat;
+
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RestfulErrorControllerTest {
-    
-    private final static String EXPECTED_PATH = "dummy";
-    
-    @InjectMocks
-    private RestfulErrorController restfulErrorController;
-    
-    @Mock
-    private ErrorProperties errorProperties;
-    
-    @Test
-    public void getErrorPath_returnErrorPropertiesPath() {
-        when(errorProperties.getPath()).thenReturn(EXPECTED_PATH);
-        
-        String path = restfulErrorController.getErrorPath();
-        
-        assertThat(path, equalTo(EXPECTED_PATH));
-    }
-    
-    @Test
-    public void error_returnApiUnauthenticationError() {
-        ApiError error = restfulErrorController.error();
-        
-        assertThat(error.getCode(), equalTo("unauthorized"));
-        assertThat(error.getMessage(), equalTo("Authentication error"));
-    }
+
+	private final static String EXPECTED_PATH = "dummy";
+
+	@InjectMocks
+	private RestfulErrorController restfulErrorController;
+
+	@Mock
+	private ErrorProperties errorProperties;
+
+	@Test
+	public void getErrorPath_returnErrorPropertiesPath() {
+		when(errorProperties.getPath()).thenReturn(EXPECTED_PATH);
+
+		String path = restfulErrorController.getErrorPath();
+
+		assertThat(path, equalTo(EXPECTED_PATH));
+	}
+
+	@Test
+	public void catchError_returnApiUnauthorizedError() {
+		ApiError error = restfulErrorController.catchError();
+
+		assertThat(error.getCode(), equalTo("unauthorized"));
+		assertThat(error.getMessage(), equalTo("Authentication error"));
+	}
 }

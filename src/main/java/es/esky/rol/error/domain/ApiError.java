@@ -18,41 +18,71 @@ package es.esky.rol.error.domain;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 /**
- * Store an api error response.
+ * Api error data model.
+ *
+ * <p>Contains:
+ * <ul>
+ * <li>Code: Unique and self explain for find easily.</li>
+ * <li>Message: Detailed description of the current error.</li>
+ * </ul>
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class ApiError implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private String code;
-    private String message;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Get code error identification.
-     *
-     * @return Error identification.
-     */
-    public String getCode() {
-        return code;
-    }
+	private String code;
+	private String message;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	/**
+	 * Get code error identification.
+	 *
+	 * @return Error identification.
+	 */
+	public String getCode() {
+		return code;
+	}
 
-    /**
-     * Get message error.
-     *
-     * @return Message error.
-     */
-    public String getMessage() {
-        return message;
-    }
+	/**
+	 * Set code error identification.
+	 *
+	 * @param code Error identification.
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	/**
+	 * Get message error.
+	 *
+	 * @return Message error.
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * Set message error.
+	 *
+	 * @param message Message error.
+	 */
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("code", code)
+				.append("message", message)
+				.toString();
+	}
 }

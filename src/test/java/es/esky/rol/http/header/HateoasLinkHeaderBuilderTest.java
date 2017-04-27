@@ -30,51 +30,51 @@ import static org.mockito.Mockito.when;
 
 public class HateoasLinkHeaderBuilderTest {
 
-    private static HateoasLinkHeaderBuilder linkHeaderBuilder;
-    private static Page<?> page;
+	private static HateoasLinkHeaderBuilder linkHeaderBuilder;
+	private static Page<?> page;
 
-    @BeforeClass
-    public static void setup() {
-        UriComponentsBuilder builder = ServletUriComponentsBuilder.fromUriString("dummy");
-        linkHeaderBuilder = new HateoasLinkHeaderBuilder(builder);
+	@BeforeClass
+	public static void setup() {
+		UriComponentsBuilder builder = ServletUriComponentsBuilder.fromUriString("dummy");
+		linkHeaderBuilder = new HateoasLinkHeaderBuilder(builder);
 
-        Pageable nextPageable = mock(Pageable.class);
-        when(nextPageable.getPageNumber()).thenReturn(4);
+		Pageable nextPageable = mock(Pageable.class);
+		when(nextPageable.getPageNumber()).thenReturn(4);
 
-        Pageable prevPageable = mock(Pageable.class);
-        when(prevPageable.getPageNumber()).thenReturn(2);
+		Pageable prevPageable = mock(Pageable.class);
+		when(prevPageable.getPageNumber()).thenReturn(2);
 
-        page = mock(Page.class);
-        when(page.nextPageable()).thenReturn(nextPageable);
-        when(page.previousPageable()).thenReturn(prevPageable);
-        when(page.getTotalPages()).thenReturn(6);
-    }
+		page = mock(Page.class);
+		when(page.nextPageable()).thenReturn(nextPageable);
+		when(page.previousPageable()).thenReturn(prevPageable);
+		when(page.getTotalPages()).thenReturn(6);
+	}
 
-    @Test
-    public void buildFirst_ReturnFirstPageLink() {
-        final String expectedLink = "<dummy?page=0>; rel=\"first\"";
-        String link = linkHeaderBuilder.buildFirst();
-        assertThat(link, equalTo(expectedLink));
-    }
+	@Test
+	public void buildFirst_ReturnFirstPageLink() {
+		final String expectedLink = "<dummy?page=0>; rel=\"first\"";
+		String link = linkHeaderBuilder.buildFirst();
+		assertThat(link, equalTo(expectedLink));
+	}
 
-    @Test
-    public void buildLast_ReturnLastPageLink() {
-        final String expectedLink = "<dummy?page=5>; rel=\"last\"";
-        String link = linkHeaderBuilder.buildLast(page);
-        assertThat(link, equalTo(expectedLink));
-    }
+	@Test
+	public void buildLast_ReturnLastPageLink() {
+		final String expectedLink = "<dummy?page=5>; rel=\"last\"";
+		String link = linkHeaderBuilder.buildLast(page);
+		assertThat(link, equalTo(expectedLink));
+	}
 
-    @Test
-    public void buildNext_ReturnNextPageLink() {
-        final String expectedLink = "<dummy?page=4>; rel=\"next\"";
-        String link = linkHeaderBuilder.buildNext(page);
-        assertThat(link, equalTo(expectedLink));
-    }
+	@Test
+	public void buildNext_ReturnNextPageLink() {
+		final String expectedLink = "<dummy?page=4>; rel=\"next\"";
+		String link = linkHeaderBuilder.buildNext(page);
+		assertThat(link, equalTo(expectedLink));
+	}
 
-    @Test
-    public void buildPrev_ReturnPreviousPageLink() {
-        final String expectedLink = "<dummy?page=2>; rel=\"prev\"";
-        String link = linkHeaderBuilder.buildPrev(page);
-        assertThat(link, equalTo(expectedLink));
-    }
+	@Test
+	public void buildPrev_ReturnPreviousPageLink() {
+		final String expectedLink = "<dummy?page=2>; rel=\"prev\"";
+		String link = linkHeaderBuilder.buildPrev(page);
+		assertThat(link, equalTo(expectedLink));
+	}
 }
