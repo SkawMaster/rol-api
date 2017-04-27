@@ -30,16 +30,14 @@ The complete Project Code Style reference is not available now, but here's a qui
 
 Please carefully follow the whitespace and formatting conventions already present in the framework.
 
-```java
 1. Tabs, not spaces
-2. Unix (LF), not DOS (CRLF) line endings
-3. Eliminate all trailing whitespace
-4. Wrap Javadoc at 90 characters
-5. Aim to wrap code at 90 characters, but favor readability over wrapping
-6. Preserve existing formatting; i.e. do not reformat code for its own sake
-7. Search the codebase using git grep and other tools to discover common naming conventions, etc.
-8. UTF-8 encoding for Java sources
-```
+1. Unix (LF), not DOS (CRLF) line endings
+1. Eliminate all trailing whitespace
+1. Wrap Javadoc at 90 characters
+1. Aim to wrap code at 90 characters, but favor readability over wrapping
+1. Preserve existing formatting; i.e. do not reformat code for its own sake
+1. Search the codebase using git grep and other tools to discover common naming conventions, etc.
+1. UTF-8 encoding for Java sources
 
 ### Add Apache license header to all new classes
 
