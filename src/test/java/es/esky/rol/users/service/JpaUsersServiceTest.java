@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package es.esky.rol.users.service.impl;
+package es.esky.rol.users.service;
 
 import es.esky.rol.users.api.exception.UserNotFoundException;
 import es.esky.rol.users.domain.User;
 import es.esky.rol.users.repository.UsersRepository;
+import es.esky.rol.users.service.JpaUsersService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
