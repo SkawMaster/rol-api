@@ -8,9 +8,15 @@ This project adheres to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of c
 
 Not sure what a pull request is, or how to submit one? Take a look at GitHub's excellent [help documentation](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/) first.
 
-### Search JIRA; create an issue if necessary
+### Ask your questions
+
+If you're unsure why something isn't working or wondering if there is a better way of doing it please join discord channel and ask about your question. In short the issue tracker should be used to report issues and make feature requests.
+
+### Issue tracker with Jira
 
 Is there already an issue that addresses your concern? Do a bit of searching in our [JIRA issue tracker](https://eversky.atlassian.net/) to see if you can find something similar. If you do not find something similar, please create a new JIRA issue before submitting a pull request unless the change is truly trivial -- for example: typo fixes, removing compiler warnings, etc.
+
+**Now, only a few people can access to JIRA while we wait to have an open source license.**
 
 ## Create a Branch
 
