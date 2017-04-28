@@ -1,3 +1,5 @@
+*This file is ba
+
 ## Code of Conduct
 
 This project adheres to the [Contributor Covenant](CODE_OF_CONDUCT.md) code of conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to mateos.c19@gmail.com
@@ -10,7 +12,7 @@ Not sure what a pull request is, or how to submit one? Take a look at GitHub's e
 
 ### Ask your questions
 
-If you're unsure why something isn't working or wondering if there is a better way of doing it please join discord channel and ask about your question. In short the issue tracker should be used to report issues and make feature requests.
+If you're unsure why something isn't working or wondering if there is a better way of doing it please join our [discord channel](https://discord.gg/CtnYDJr) and ask about your question. In short the issue tracker should be used to report issues and make feature requests.
 
 ### Issue tracker with Jira
 
