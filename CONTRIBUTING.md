@@ -14,25 +14,22 @@ Not sure what a pull request is, or how to submit one? Take a look at GitHub's e
 
 If you're unsure why something isn't working or wondering if there is a better way of doing it please join our [discord channel](https://discord.gg/CtnYDJr) and ask about your question. In short the issue tracker should be used to report issues and make feature requests.
 
-### Issue tracker with Jira
-
-Is there already an issue that addresses your concern? Do a bit of searching in our [JIRA issue tracker](https://eversky.atlassian.net/) to see if you can find something similar. If you do not find something similar, please create a new JIRA issue before submitting a pull request unless the change is truly trivial -- for example: typo fixes, removing compiler warnings, etc.
-
-**Now, only a few people can access to JIRA while we wait to have an open source license.**
+### Issue tracker
+Is there already an issue that addresses your concern? Do a bit of searching in our [issue tracker](https://github.com/cmateosl/rol-api/issues) to see if you can find something similar. If you do not find something similar, please create a new issue before submitting a pull request unless the change is truly trivial -- for example: typo fixes, removing compiler warnings, etc.
 
 ## Create a Branch
 
-### Branch from master
+### Branch from `master`
 
 Master currently represents work toward next version. Please submit all pull requests there, even bug fixes and minor improvements.
 
 ### Use short branch names
 
-Branches used when submitting pull requests should preferably be named according to JIRA issues, e.g. 'ROL-1234'. Otherwise, use succinct, lower-case, dash (-) delimited names, such as 'fix-warnings', 'fix-typo', etc. In [fork-and-edit](https://github.com/blog/844-forking-with-the-edit-button) cases, the GitHub default 'patch-1' is fine as well. This is important, because branch names show up in the merge commits that result from accepting pull requests and should be as expressive and concise as possible.
+Branches used when submitting pull requests should preferably be named according to issues number, e.g. 'issue-39'. Otherwise, use succinct, lower-case, dash (-) delimited names, such as 'fix-warnings', 'fix-typo', etc. In [fork-and-edit](https://github.com/blog/844-forking-with-the-edit-button) cases, the GitHub default 'patch-1' is fine as well. This is important, because branch names show up in the merge commits that result from accepting pull requests and should be as expressive and concise as possible.
 
 ## Use Project Code Style
 
-The complete Project Code Style reference is not available now, but here's a quick summary:
+The complete [project code style](https://github.com/cmateosl/rol-api/wiki/Rol-api-code-style) reference is available on the wiki, but here's a quick summary:
 
 ### Mind the whitespace
 
