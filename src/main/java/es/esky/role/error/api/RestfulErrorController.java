@@ -49,7 +49,7 @@ public class RestfulErrorController implements ErrorController {
 	 */
 	@Autowired
 	public RestfulErrorController(@NotNull ErrorProperties errorProperties) {
-		Assert.notNull(errorProperties);
+		Assert.notNull(errorProperties, "ErrorProperties must not be null");
 		this.errorProperties = errorProperties;
 	}
 
