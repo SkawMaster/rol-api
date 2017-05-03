@@ -173,6 +173,36 @@ Issue: 23, 345, ROL-18
 1. Mention associated issue(s) at the end of the commit comment, prefixed with "Issue: " as above.
 1. In the body of the commit message, explain how things worked before this commit, what has changed, and how things work now.
 
+## Run the Final Checklist
+
+### Run all tests prior to submission
+
+See the [building from source]() section of the `README` for instructions. Make sure that all tests pass prior to submitting your pull request.
+
+### Submit your pull request
+
+Subject line:
+
+Follow the same conventions for pull request subject lines as mentioned above for commit message subject lines.
+
+In the body:
+
+1. Explain your use case. What led you to submit this change? Why were existing mechanisms in the framework insufficient? Make a case that this is a general-purpose problem and that yours is a general-purpose solution, etc.
+1. Add any additional information and ask questions; start a conversation or continue one from github issues.
+1. Mention the issue ID.
+
+Note that for pull requests containing a single commit, GitHub will default the subject line and body of the pull request to match the subject line and body of the commit message. This is fine, but please also include the items above in the body of the request.
+
+### Mention your pull request on the associated issue
+
+Add a comment to the associated issue(s) linking to your new pull request.
+
+### Expect discussion and rework
+
+The team takes a very conservative approach to accepting contributions to the framework. This is to keep code quality and stability as high as possible, and to keep complexity at a minimum. Your changes, if accepted, may be heavily modified prior to merging. You will retain "Author:" attribution for your Git commits granted that the bulk of your changes remain intact. You may be asked to rework the submission for style (as explained above) and/or substance. Again, we strongly recommend discussing any serious submissions with the Spring Framework team prior to engaging in serious development work.
+
+Note that you can always force push (`git push -f`) reworked / rebased commits against the branch used to submit your pull request. In other words, you do not need to issue a new pull request when asked to make changes.
+
 ## Attribution
 
 This file is an adaptation of the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
