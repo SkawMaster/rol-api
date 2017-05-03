@@ -55,4 +55,4 @@ Enter in our [discord channel](https://discord.gg/CtnYDJr) for info or ask quest
 
 ## License
 
-The Spring Framework is released under version 2.0 of the Apache License.
+The Spring Framework is released under version 2.0 of the [Apache License](http://www.apache.org/licenses/LICENSE-2.0).
