@@ -17,7 +17,7 @@ Not sure what a pull request is, or how to submit one? Take a look at GitHub's e
 If you're unsure why something isn't working or wondering if there is a better way of doing it please join our [discord channel](https://discord.gg/CtnYDJr) and ask about your question. In short the issue tracker should be used to report issues and make feature requests.
 
 ### Issue tracker
-Is there already an issue that addresses your concern? Do a bit of searching in our [issue tracker](https://github.com/cmateosl/rol-api/issues) to see if you can find something similar. If you do not find something similar, please create a new issue before submitting a pull request unless the change is truly trivial -- for example: typo fixes, removing compiler warnings, etc.
+Is there already an issue that addresses your concern? Do a bit of searching in our [issue tracker](https://github.com/cmateosl/role-api/issues) to see if you can find something similar. If you do not find something similar, please create a new issue before submitting a pull request unless the change is truly trivial -- for example: typo fixes, removing compiler warnings, etc.
 
 ## Create a Branch
 
@@ -31,7 +31,7 @@ Branches used when submitting pull requests should preferably be named according
 
 ## Use Project Code Style
 
-The complete [project code style](https://github.com/cmateosl/rol-api/wiki/Rol-api-code-style) reference is available on the wiki, but here's a quick summary:
+The complete [project code style](https://github.com/cmateosl/role-api/wiki/Rol-api-code-style) reference is available on the wiki, but here's a quick summary:
 
 ### Mind the whitespace
 
