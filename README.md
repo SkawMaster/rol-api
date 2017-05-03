@@ -17,7 +17,7 @@ Exist a develop version deploy in [heroku](https://rol-api.herokuapp.com/)
 
 ## Documentation
 
-[Wiki](wiki) is now work in progress.
+[Wiki](https://github.com/cmateosl/rol-api/wiki) is now work in progress.
 
 ## Issue Tracking
 
