@@ -44,3 +44,15 @@ Be sure that your `JAVA_HOME` environment variable points to the `jdk1.8.0` fold
 ### Run project
 
 `mvn spring-boot:run`
+
+## Contributing
+
+[Pull requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/) are welcome; see the [contributor guidelines](CONTRIBUTING.md) for details.
+
+## Staying in Touch
+
+Enter in our [discord channel](https://discord.gg/CtnYDJr) for info or ask question about the api.
+
+## License
+
+The Spring Framework is released under version 2.0 of the Apache License.
