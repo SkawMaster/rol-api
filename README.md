@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/cmateosl/rol-api.svg?branch=master)](https://travis-ci.org/cmateosl/rol-api)
 [![Quality Gate](http://sonarqube.com/api/badges/gate?key=es.esky:rol-api)](http://sonarqube.com/dashboard/index/es.esky:rol-api)
 
-## Rol API 
+## Role API 
 
-Rol API provides an API Restfull based on a collection of [best practices](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) to create and administrate a role games comunity.
+Role API provides an API Restfull based on a collection of [best practices](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) to create and administrate a role games comunity.
 
 ## Code of Conduct
 
@@ -17,7 +17,7 @@ Exist a develop version deploy in [heroku](https://rol-api.herokuapp.com/)
 
 ## Documentation
 
-[Wiki](https://github.com/cmateosl/rol-api/wiki) is now work in progress.
+[Wiki](https://github.com/cmateosl/role-api/wiki) is now work in progress.
 
 ## Issue Tracking
 
@@ -25,7 +25,7 @@ Report issues via the Github issues. Understand our issue management process by 
 
 ## Building from Source
 
-The rol-api project uses [Maven 3.0](https://maven.apache.org/) build system. In the instructions below, `mvn` is invoked from the root of the source tree.
+The role-api project uses [Maven 3.0](https://maven.apache.org/) build system. In the instructions below, `mvn` is invoked from the root of the source tree.
 
 ### Prerequisites
 
@@ -35,7 +35,7 @@ Be sure that your `JAVA_HOME` environment variable points to the `jdk1.8.0` fold
 
 ### Check out sources
 
-`git clone git@github.com:cmateosl/rol-api.git`
+`git clone git@github.com:cmateosl/role-api.git`
 
 ### Build project
 
