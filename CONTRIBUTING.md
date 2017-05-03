@@ -175,4 +175,4 @@ Issue: 23, 345, ROL-18
 
 ## Attribution
 
-This file is based on the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
+This file is an adaptation of the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
