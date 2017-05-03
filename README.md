@@ -17,7 +17,7 @@ Exist a develop version deploy in [heroku](https://rol-api.herokuapp.com/)
 
 ## Documentation
 
-[Wiki]() is now work in progress.
+[Wiki](wiki) is now work in progress.
 
 ## Issue Tracking
 
@@ -25,11 +25,11 @@ Report issues via the Github issues. Understand our issue management process by 
 
 ## Building from Source
 
-The rol-api project uses [Maven 3.0]() build system. In the instructions below, `mvn` is invoked from the root of the source tree and serves as a cross-platform, self-contained bootstrap mechanism for the build.
+The rol-api project uses [Maven 3.0](https://maven.apache.org/) build system. In the instructions below, `mvn` is invoked from the root of the source tree.
 
 ### Prerequisites
 
-[Git]() and [JDK 8 update 20 or later]()
+[Git](https://git-scm.com/) and [JDK 8 update 20 or later](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 Be sure that your `JAVA_HOME` environment variable points to the `jdk1.8.0` folder extracted from the JDK download.
 
