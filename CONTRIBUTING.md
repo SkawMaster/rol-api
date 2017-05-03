@@ -177,7 +177,7 @@ Issue: 23, 345, ROL-18
 
 ### Run all tests prior to submission
 
-See the [building from source]() section of the `README` for instructions. Make sure that all tests pass prior to submitting your pull request.
+See the [building from source](README.md#build-project) section of the `README` for instructions. Make sure that all tests pass prior to submitting your pull request.
 
 ### Submit your pull request
 
