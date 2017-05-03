@@ -1,6 +1,6 @@
 ## Attribution
 
-This file is based on the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/wiki/Spring-Framework-Code-Style) file of Spring Framework.
+This file is based on the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
 
 ## Code of Conduct
 
