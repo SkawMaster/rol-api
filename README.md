@@ -3,7 +3,7 @@
 
 ## Rol API 
 
-Rol API provides an API Restfull based on a collection of [best practices](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) to create and administrate a rol game comunity.
+Rol API provides an API Restfull based on a collection of [best practices](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api) to create and administrate a role games comunity.
 
 ## Code of Conduct
 
