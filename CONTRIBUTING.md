@@ -97,3 +97,78 @@ For example:
  * @see ...
  */
 ```
+
+## Prepare Your Commit
+
+### Submit JUnit test cases for all behavior changes
+
+Search the codebase to find related tests and add additional @Test methods as appropriate. Functional tests must be submited in Gherkin language.
+
+### Squash commits
+
+Use `git rebase --interactive --autosquash`, `git add --patch`, and other tools to "squash" multiple commits into a single atomic commit. In addition to the man pages for git, there are many resources online to help you understand how these tools work. The [Rewriting History section of Pro Git](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) provides a good overview.
+
+### Use real name in git commits
+
+Please configure git to use your real first and last name for any commits you intend to submit as pull requests. For example, this is not acceptable:
+
+```
+Author: Username <user@mail.com>
+```
+
+Rather, please include your first and last name, properly capitalized:
+
+```
+Author: First Last <user@mail.com>
+```
+
+This helps ensure useful output from tools like git shortlog and others.
+
+You can configure this via the account admin area in GitHub (useful for fork-and-edit cases); globally on your machine with
+
+```shell
+git config --global user.name "First Last"
+git config --global user.email user@mail.com
+```
+
+or locally for the `rol-api` repository only by omitting the '--global' flag:
+
+```shell
+cd rol-api
+git config user.name "First Last"
+git config user.email user@mail.com
+```
+
+### Format commit messages
+
+Please read and follow the [Commit Guidelines section of Pro Git](https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#Commit-Guidelines).
+
+Most importantly, please format your commit messages in the following way (adapted from the commit template in the link above):
+
+```
+Short (50 chars or less) summary of changes
+
+More detailed explanatory text, if necessary. Wrap it to about 72
+characters or so. In some contexts, the first line is treated as the
+subject of an email and the rest of the text as the body. The blank
+line separating the summary from the body is critical (unless you omit
+the body entirely); tools like rebase can get confused if you run the
+two together.
+
+Further paragraphs come after blank lines.
+
+ - Bullet points are okay, too
+
+ - Typically a hyphen or asterisk is used for the bullet, preceded by a
+   single space, with blank lines in between, but conventions vary here
+
+Issue: 23, 345, ROL-18
+```
+
+1. Use imperative statements in the subject line, e.g. "Fix broken Javadoc link".
+1. Begin the subject line with a capitalized verb, e.g. "Add, Prune, Fix, Introduce, Avoid, etc."
+1. Do not end the subject line with a period.
+1. Restrict the subject line to 50 characters or less if possible.
+1. Wrap lines in the body at 72 characters or less.
+1. Mention associated issue(s) at the end of the commit comment, prefixed with "Issue: " as above.
+1. In the body of the commit message, explain how things worked before this commit, what has changed, and how things work now.
