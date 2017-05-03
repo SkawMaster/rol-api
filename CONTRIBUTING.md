@@ -1,6 +1,6 @@
-## Attribution
+*Have something you'd like to contribute to the api? We welcome pull requests but ask that you carefully read this document first to understand how best to submit them; what kind of changes are likely to be accepted; and what to expect from the team when evaluating your submission.*
 
-This file is based on the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
+*Please refer back to this document as a checklist before issuing any pull request; this will save time for everyone!*
 
 ## Code of Conduct
 
@@ -172,3 +172,7 @@ Issue: 23, 345, ROL-18
 1. Wrap lines in the body at 72 characters or less.
 1. Mention associated issue(s) at the end of the commit comment, prefixed with "Issue: " as above.
 1. In the body of the commit message, explain how things worked before this commit, what has changed, and how things work now.
+
+## Attribution
+
+This file is based on the [CONTRIBUTING](https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md) file of Spring Framework.
