@@ -102,7 +102,8 @@ For example:
 
 ### Submit JUnit test cases for all behavior changes
 
-Search the codebase to find related tests and add additional @Test methods as appropriate. Functional tests must be submited in Gherkin language.
+Search the codebase to find related tests and add additional @Test methods as appropriate. Functional tests must be 
+submitted in Gherkin language.
 
 ### Squash commits
 
@@ -122,7 +123,7 @@ Rather, please include your first and last name, properly capitalized:
 Author: First Last <user@mail.com>
 ```
 
-This helps ensure useful output from tools like git shortlog and others.
+This helps ensure useful output from tools like `git shortlog` and others.
 
 You can configure this via the account admin area in GitHub (useful for fork-and-edit cases); globally on your machine with
 
@@ -188,7 +189,7 @@ Follow the same conventions for pull request subject lines as mentioned above fo
 In the body:
 
 1. Explain your use case. What led you to submit this change? Why were existing mechanisms in the framework insufficient? Make a case that this is a general-purpose problem and that yours is a general-purpose solution, etc.
-1. Add any additional information and ask questions; start a conversation or continue one from github issues.
+1. Add any additional information and ask questions; start a conversation or continue one from Github issues.
 1. Mention the issue ID.
 
 Note that for pull requests containing a single commit, GitHub will default the subject line and body of the pull request to match the subject line and body of the commit message. This is fine, but please also include the items above in the body of the request.
