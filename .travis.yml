@@ -4,6 +4,7 @@ install: true
 
 addons:
   sonarqube:
+    organization: "cmateosl-github"
 
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
