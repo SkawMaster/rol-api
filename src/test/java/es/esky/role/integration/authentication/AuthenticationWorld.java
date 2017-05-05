@@ -16,8 +16,9 @@
 
 package es.esky.role.integration.authentication;
 
-import es.esky.role.integration.WorldLifecycle;
 import org.springframework.stereotype.Component;
+
+import es.esky.role.integration.WorldLifecycle;
 
 /**
  * Share authentication data between steps.
@@ -28,53 +29,53 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthenticationWorld implements WorldLifecycle {
 
-    private String username;
-    private String password;
+	private String username;
+	private String password;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void before() {
-        username = null;
-        password = null;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void before() {
+		username = null;
+		password = null;
+	}
 
-    /**
-     * Save user credentials.
-     *
-     * @param username User username.
-     * @param password User password.
-     */
-    public void saveCredentials(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
+	/**
+	 * Save user credentials.
+	 *
+	 * @param username User username.
+	 * @param password User password.
+	 */
+	public void saveCredentials(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 
-    /**
-     * Check if some credential is store.
-     *
-     * @return True if exist credentials, otherwise false.
-     */
-    public boolean haveCredentials() {
-        return this.username != null && this.password != null;
-    }
+	/**
+	 * Check if some credential is store.
+	 *
+	 * @return True if exist credentials, otherwise false.
+	 */
+	public boolean haveCredentials() {
+		return this.username != null && this.password != null;
+	}
 
-    /**
-     * Get username credentials if exist.
-     *
-     * @return Username credentials if exist, otherwise null.
-     */
-    public String getUsername() {
-        return this.username;
-    }
+	/**
+	 * Get username credentials if exist.
+	 *
+	 * @return Username credentials if exist, otherwise null.
+	 */
+	public String getUsername() {
+		return this.username;
+	}
 
-    /**
-     * Get password credentials if exist.
-     *
-     * @return Password credentials if exist, otherwise null.
-     */
-    public String getPassword() {
-        return this.password;
-    }
+	/**
+	 * Get password credentials if exist.
+	 *
+	 * @return Password credentials if exist, otherwise null.
+	 */
+	public String getPassword() {
+		return this.password;
+	}
 }

@@ -16,9 +16,6 @@
 
 package es.esky.role.security;
 
-import es.esky.role.users.api.exception.UserNotFoundException;
-import es.esky.role.users.domain.User;
-import es.esky.role.users.service.UsersService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -26,6 +23,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import es.esky.role.users.api.exception.UserNotFoundException;
+import es.esky.role.users.domain.User;
+import es.esky.role.users.service.UsersService;
 
 import static es.esky.role.users.domain.builder.UserBuilder.user;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -40,33 +41,33 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CurrentUserDetailsServiceTest {
 
-    @InjectMocks
-    private CurrentUserDetailsService userDetailsService;
+	@InjectMocks
+	private CurrentUserDetailsService userDetailsService;
 
-    @Mock
-    private UsersService usersService;
+	@Mock
+	private UsersService usersService;
 
-    @Test
-    public void loadUserByUsername_WhenUserExist_ReturnUserDetailsWithUser() {
-        final String username = "dummy";
-        final User expectedUser = user().withUsername("dummy").withPassword("1234").build();
+	@Test
+	public void loadUserByUsername_WhenUserExist_ReturnUserDetailsWithUser() {
+		final String username = "dummy";
+		final User expectedUser = user().withUsername("dummy").withPassword("1234").build();
 
-        when(usersService.findByUsername(username)).thenReturn(expectedUser);
+		when(usersService.findByUsername(username)).thenReturn(expectedUser);
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-        assertThat(userDetails.getUsername(), equalTo(expectedUser.getUsername()));
-    }
+		assertThat(userDetails.getUsername(), equalTo(expectedUser.getUsername()));
+	}
 
-    @Test(expected = UsernameNotFoundException.class)
-    public void loadUserByUsername_WhenUserNotExist_ThrowUsernameNotFoundException() {
-        final String username = "dummy";
-        final UserNotFoundException exception = new UserNotFoundException();
+	@Test(expected = UsernameNotFoundException.class)
+	public void loadUserByUsername_WhenUserNotExist_ThrowUsernameNotFoundException() {
+		final String username = "dummy";
+		final UserNotFoundException exception = new UserNotFoundException();
 
-        when(usersService.findByUsername(username)).thenThrow(exception);
+		when(usersService.findByUsername(username)).thenThrow(exception);
 
-        userDetailsService.loadUserByUsername(username);
+		userDetailsService.loadUserByUsername(username);
 
-        fail();
-    }
+		fail();
+	}
 }

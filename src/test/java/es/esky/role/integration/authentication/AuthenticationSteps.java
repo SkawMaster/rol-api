@@ -26,14 +26,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class AuthenticationSteps {
 
-    @Autowired
-    private AuthenticationWorld authenticationWorld;
+	@Autowired
+	private AuthenticationWorld authenticationWorld;
 
-    /**
-     * Login a user with user and password credentials.
-     */
-    @Given("^I am authenticated as (\\w+) user with password (\\w+)$")
-    public void i_am_authenticate_as(String username, String password) {
-        authenticationWorld.saveCredentials(username, password);
-    }
+	/**
+	 * Login a user with user and password credentials.
+	 */
+	@Given("^I am authenticated as (\\w+) user with password (\\w+)$")
+	public void i_am_authenticate_as(String username, String password) {
+		authenticationWorld.saveCredentials(username, password);
+	}
 }

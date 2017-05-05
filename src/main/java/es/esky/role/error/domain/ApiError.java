@@ -23,7 +23,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * Api error data model.
  *
- * <p>Contains:
  * <ul>
  * <li>Code: Unique and self explain for find easily.</li>
  * <li>Message: Detailed description of the current error.</li>
@@ -43,6 +42,7 @@ public class ApiError implements Serializable {
 	 * Get code error identification.
 	 *
 	 * @return Error identification.
+	 * @since 1.0.0
 	 */
 	public String getCode() {
 		return code;
@@ -52,6 +52,7 @@ public class ApiError implements Serializable {
 	 * Set code error identification.
 	 *
 	 * @param code Error identification.
+	 * @since 1.0.0
 	 */
 	public void setCode(String code) {
 		this.code = code;
@@ -61,6 +62,7 @@ public class ApiError implements Serializable {
 	 * Get message error.
 	 *
 	 * @return Message error.
+	 * @since 1.0.0
 	 */
 	public String getMessage() {
 		return message;
@@ -70,6 +72,7 @@ public class ApiError implements Serializable {
 	 * Set message error.
 	 *
 	 * @param message Message error.
+	 * @since 1.0.0
 	 */
 	public void setMessage(String message) {
 		this.message = message;

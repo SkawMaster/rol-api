@@ -38,23 +38,23 @@ import org.springframework.web.util.UriComponentsBuilder;
 @EnableAutoConfiguration
 public class Application {
 
-    /**
-     * Entry point.
-     *
-     * @param args Application call arguments.
-     */
-    public static void main(String... args) {
-        SpringApplication.run(Application.class, args);
-    }
+	/**
+	 * Entry point.
+	 *
+	 * @param args Application call arguments.
+	 */
+	public static void main(String... args) {
+		SpringApplication.run(Application.class, args);
+	}
 
-    @Bean
-    public ErrorProperties errorProperties(ServerProperties serverProperties) {
-        return serverProperties.getError();
-    }
+	@Bean
+	public ErrorProperties errorProperties(ServerProperties serverProperties) {
+		return serverProperties.getError();
+	}
 
-    @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public UriComponentsBuilder uriComponentsBuilder() {
-        return ServletUriComponentsBuilder.fromCurrentRequest();
-    }
+	@Bean
+	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public UriComponentsBuilder uriComponentsBuilder() {
+		return ServletUriComponentsBuilder.fromCurrentRequest();
+	}
 }

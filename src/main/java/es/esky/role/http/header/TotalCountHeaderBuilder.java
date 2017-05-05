@@ -19,9 +19,19 @@ package es.esky.role.http.header;
 import org.springframework.data.domain.Page;
 
 /**
+ * Build the value of the header {@code X-Total-Count}.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface TotalCountHeaderBuilder {
-    String buildTotal(Page<?> page);
+	/**
+	 * Build {@code X-Total-Count} header value.
+	 *
+	 * @param page Pagination data.
+	 * @return String representation of {@code X-Total-Count} value.
+	 * @see es.esky.role.pagination.PaginationHeadersBuilder
+	 * @since 1.0.0
+	 */
+	String buildTotal(Page<?> page);
 }

@@ -16,12 +16,13 @@
 
 package es.esky.role.security;
 
-import es.esky.role.users.domain.User;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import es.esky.role.users.domain.User;
 
 /**
  * Stores information about the current user logged.
@@ -31,70 +32,70 @@ import java.util.Collection;
  */
 public class CurrentUserDetails implements UserDetails {
 
-    private final User userInfo;
+	private final User userInfo;
 
-    /**
-     * Construct a new CurrentUserDetails.
-     *
-     * @param userInfo User logged information.
-     */
-    public CurrentUserDetails(User userInfo) {
-        this.userInfo = userInfo;
-    }
+	/**
+	 * Construct a new CurrentUserDetails.
+	 *
+	 * @param userInfo User logged information.
+	 */
+	public CurrentUserDetails(User userInfo) {
+		this.userInfo = userInfo;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getPassword() {
-        return userInfo.getPassword();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getPassword() {
+		return userInfo.getPassword();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getUsername() {
-        return userInfo.getUsername();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String getUsername() {
+		return userInfo.getUsername();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAccountNonExpired() {
-        return Boolean.TRUE;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isAccountNonExpired() {
+		return Boolean.TRUE;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isAccountNonLocked() {
-        return Boolean.TRUE;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isAccountNonLocked() {
+		return Boolean.TRUE;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return Boolean.TRUE;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return Boolean.TRUE;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isEnabled() {
-        return Boolean.TRUE;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isEnabled() {
+		return Boolean.TRUE;
+	}
 }

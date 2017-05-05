@@ -19,9 +19,16 @@ package es.esky.role.http;
 import org.springframework.http.HttpHeaders;
 
 /**
+ * Customize {@link HttpHeaders} with API own headers.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class ApiHttpHeaders extends HttpHeaders {
-    public static final String TOTAL_COUNT = "X-Total-Count";
+	/**
+	 * Custom HTTP {@code X-Total-Count} header field name.
+	 *
+	 * @since 1.0.0
+	 */
+	public static final String TOTAL_COUNT = "X-Total-Count";
 }

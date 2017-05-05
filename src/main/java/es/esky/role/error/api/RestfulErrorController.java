@@ -38,7 +38,7 @@ import es.esky.role.error.domain.ApiError;
 @RestController
 public class RestfulErrorController implements ErrorController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(RestfulErrorController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestfulErrorController.class);
 
 	private final ErrorProperties errorProperties;
 
@@ -46,6 +46,7 @@ public class RestfulErrorController implements ErrorController {
 	 * Construct the controller with the current server error properties.
 	 *
 	 * @param errorProperties Api error properties.
+	 * @since 1.0.0
 	 */
 	@Autowired
 	public RestfulErrorController(@NotNull ErrorProperties errorProperties) {
@@ -65,6 +66,7 @@ public class RestfulErrorController implements ErrorController {
 	 * Catch an undefined server error and map it to {@link ApiError} model.
 	 *
 	 * @return Error mapped to {@link ApiError} model.
+	 * @since 1.0.0
 	 */
 	@RequestMapping("${server.error.path:${error.path:/error}}")
 	public ApiError catchError() {
@@ -73,7 +75,7 @@ public class RestfulErrorController implements ErrorController {
 		error.setCode("unauthorized");
 		error.setMessage("Authentication error");
 
-		LOGGER.info("Api error throw with value {}", error);
+		logger.info("Api error throw with value {}", error);
 
 		return error;
 	}

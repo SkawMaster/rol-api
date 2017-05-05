@@ -28,15 +28,15 @@ import static org.junit.Assert.assertThat;
 @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class ApiHttpHeadersTest {
 
-    @Test
-    public void constructor_constructCorrectly() {
-        ApiHttpHeaders httpHeaders = new ApiHttpHeaders();
+	@Test
+	public void constructor_constructCorrectly() {
+		ApiHttpHeaders httpHeaders = new ApiHttpHeaders();
 
-        assertThat(httpHeaders.size(), equalTo(0));
-    }
+		assertThat(httpHeaders.size(), equalTo(0));
+	}
 
-    @Test
-    public void totalCountHeader_valueIsCorrect() {
-        assertThat(ApiHttpHeaders.TOTAL_COUNT, equalTo("X-Total-Count"));
-    }
+	@Test
+	public void totalCountHeader_valueIsCorrect() {
+		assertThat(ApiHttpHeaders.TOTAL_COUNT, equalTo("X-Total-Count"));
+	}
 }

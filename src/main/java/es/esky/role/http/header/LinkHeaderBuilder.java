@@ -19,12 +19,48 @@ package es.esky.role.http.header;
 import org.springframework.data.domain.Page;
 
 /**
+ * Build the links for the api on the header {@code Link}
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface LinkHeaderBuilder {
-    String buildFirst();
-    String buildNext(Page<?> page);
-    String buildLast(Page<?> page);
-    String buildPrev(Page<?> page);
+	/**
+	 * Build pagination link {@code first}.
+	 *
+	 * @return Url string representation of link {@code first}.
+	 * @see es.esky.role.pagination.PaginationHeadersBuilder
+	 * @since 1.0.0
+	 */
+	String buildFirst();
+
+	/**
+	 * Build pagination link {@code next}.
+	 *
+	 * @param page Pagination data.
+	 * @return Url string representation of link {@code next}.
+	 * @see es.esky.role.pagination.PaginationHeadersBuilder
+	 * @since 1.0.0
+	 */
+	String buildNext(Page<?> page);
+
+	/**
+	 * Build pagination link {@code last}.
+	 *
+	 * @param page Pagination data.
+	 * @return Url string representation of link {@code last}.
+	 * @see es.esky.role.pagination.PaginationHeadersBuilder
+	 * @since 1.0.0
+	 */
+	String buildLast(Page<?> page);
+
+	/**
+	 * Build pagination link {@code prev}.
+	 *
+	 * @param page Pagination data.
+	 * @return Url string representation of link {@code prev}.
+	 * @see es.esky.role.pagination.PaginationHeadersBuilder
+	 * @since 1.0.0
+	 */
+	String buildPrev(Page<?> page);
 }

@@ -16,18 +16,31 @@
 
 package es.esky.role.http.header;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 /**
+ * Implement {@link TotalCountHeaderBuilder} using a simple conversion to {@code String}.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
 public class SimpleTotalCountHeaderBuilder implements TotalCountHeaderBuilder {
-    
-    @Override
-    public String buildTotal(Page<?> page) {
-        return String.valueOf(page.getTotalElements());
-    }
+	private static final Logger logger = LoggerFactory.getLogger(SimpleTotalCountHeaderBuilder.class);
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String buildTotal(Page<?> page) {
+		logger.trace("Method buildTotal called with Page value: {}", page);
+
+		String value = String.valueOf(page.getTotalElements());
+
+		logger.debug("Value of header <X-Total-Count> formed with value: {}", value);
+		return value;
+	}
 }
