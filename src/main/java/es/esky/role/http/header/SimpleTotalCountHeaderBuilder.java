@@ -37,9 +37,7 @@ public class SimpleTotalCountHeaderBuilder implements TotalCountHeaderBuilder {
 	@Override
 	public String buildTotal(Page<?> page) {
 		logger.trace("Method buildTotal called with Page value: {}", page);
-
 		String value = String.valueOf(page.getTotalElements());
-
 		logger.debug("Value of header <X-Total-Count> formed with value: {}", value);
 		return value;
 	}

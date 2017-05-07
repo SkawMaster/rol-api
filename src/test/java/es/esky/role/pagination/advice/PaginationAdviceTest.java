@@ -42,13 +42,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
-public class PaginationControllerTest {
+public class PaginationAdviceTest {
 
     private Method pageableMethod;
     private Method nonPageableMethod;
 
     @InjectMocks
-    private PaginationController paginationController;
+    private PaginationAdvice paginationAdvice;
 
     @Mock
     private PaginationHeadersBuilder paginationHeadersBuilder;
@@ -64,37 +64,28 @@ public class PaginationControllerTest {
         Page<?> samplePage = mock(Page.class);
         ServerHttpResponse response = mock(ServerHttpResponse.class);
 
-        MappingJacksonValue value = new MappingJacksonValue(samplePage);
         HttpHeaders headers = new HttpHeaders();
 
         when(paginationHeadersBuilder.addPaginationData(headers, samplePage)).thenReturn(headers);
         when(response.getHeaders()).thenReturn(headers);
 
-        paginationController.beforeBodyWriteInternal(value, null, null, null, response);
+        paginationAdvice.beforeBodyWrite(samplePage, null, null, null, null, response);
 
         verify(paginationHeadersBuilder, times(1)).addPaginationData(headers, samplePage);
     }
 
     @Test
-    public void supports_PageReturnTypeAndJacksonConverter_ReturnTrue() {
+    public void supports_PageReturnType_ReturnTrue() {
         MethodParameter returnType = new MethodParameter(pageableMethod, -1, 0);
-        boolean support = paginationController.supports(returnType, AbstractJackson2HttpMessageConverter.class);
+        boolean support = paginationAdvice.supports(returnType, AbstractJackson2HttpMessageConverter.class);
 
         assertThat(support, equalTo(Boolean.TRUE));
     }
 
     @Test
-    public void supports_NonPageReturnTypeAndJacksonConverter_ReturnFalse() {
+    public void supports_NonPageReturnTyp_ReturnFalse() {
         MethodParameter returnType = new MethodParameter(nonPageableMethod, -1, 0);
-        boolean support = paginationController.supports(returnType, AbstractJackson2HttpMessageConverter.class);
-
-        assertThat(support, equalTo(Boolean.FALSE));
-    }
-
-    @Test
-    public void supports_PageReturnTypeAndNonJacksonConverter_ReturnFalse() {
-        MethodParameter returnType = new MethodParameter(pageableMethod, -1, 0);
-        boolean support = paginationController.supports(returnType, NonJacksonConverter.class);
+        boolean support = paginationAdvice.supports(returnType, AbstractJackson2HttpMessageConverter.class);
 
         assertThat(support, equalTo(Boolean.FALSE));
     }

@@ -63,7 +63,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	 */
 	@Override
 	public String buildFirst() {
-		final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, 0).build();
+		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, 0).build();
 		return buildLink(components, LINK_REL_FIRST);
 	}
 
@@ -73,7 +73,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	@Override
 	public String buildLast(final Page<?> page) {
 		logger.trace("Method buildLast called with Page value: {}", page);
-		final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
+		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
 		return buildLink(components, LINK_REL_LAST);
 	}
 
@@ -83,7 +83,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	@Override
 	public String buildNext(final Page<?> page) {
 		logger.trace("Method buildNext called with Page value: {}", page);
-		final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber()).build();
+		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber()).build();
 		return buildLink(components, LINK_REL_NEXT);
 	}
 
@@ -93,7 +93,7 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	@Override
 	public String buildPrev(final Page<?> page) {
 		logger.trace("Method buildPrev called with Page value: {}", page);
-		final UriComponents components = builder.replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber()).build();
+		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber()).build();
 		return buildLink(components, LINK_REL_PREVIOUS);
 	}
 

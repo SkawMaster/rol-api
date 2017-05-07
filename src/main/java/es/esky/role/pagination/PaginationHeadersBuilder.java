@@ -20,9 +20,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 
 /**
+ * Build the pagination headers.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface PaginationHeadersBuilder {
-    HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page);
+	/**
+	 * Add pagination data to the headers.
+	 *
+	 * @param headers Headers that will store pagination data.
+	 * @param page    Pagination data.
+	 * @return Headers with the pagination data.
+	 * @since 1.0.0
+	 */
+	HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page);
 }

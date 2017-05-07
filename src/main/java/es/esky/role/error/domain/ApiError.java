@@ -45,7 +45,7 @@ public class ApiError implements Serializable {
 	 * @since 1.0.0
 	 */
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class ApiError implements Serializable {
 	 * @since 1.0.0
 	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	/**
@@ -84,8 +84,8 @@ public class ApiError implements Serializable {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-				.append("code", code)
-				.append("message", message)
+				.append("code", this.code)
+				.append("message", this.message)
 				.toString();
 	}
 }

@@ -16,51 +16,78 @@
 
 package es.esky.role.pagination;
 
-import es.esky.role.http.ApiHttpHeaders;
-import es.esky.role.http.header.LinkHeaderBuilder;
-import es.esky.role.http.header.TotalCountHeaderBuilder;
+import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
+import es.esky.role.http.ApiHttpHeaders;
+import es.esky.role.http.header.HateoasLinkHeaderBuilder;
+import es.esky.role.http.header.LinkHeaderBuilder;
+import es.esky.role.http.header.TotalCountHeaderBuilder;
 
 /**
+ * Implement {@link PaginationHeadersBuilder} adding pagination data in {@code X-Total-Count} and {@code Link} headers.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
 public class HateoasPaginationHeadersBuilder implements PaginationHeadersBuilder {
+	private static final Logger logger = LoggerFactory.getLogger(HateoasLinkHeaderBuilder.class);
 
-    private final LinkHeaderBuilder linkHeaderBuilder;
-    private final TotalCountHeaderBuilder totalCountHeaderBuilder;
+	private final LinkHeaderBuilder linkHeaderBuilder;
+	private final TotalCountHeaderBuilder totalCountHeaderBuilder;
 
-    @Autowired
-    public HateoasPaginationHeadersBuilder(LinkHeaderBuilder linkHeaderBuilder, TotalCountHeaderBuilder totalCountHeaderBuilder) {
-        this.linkHeaderBuilder = linkHeaderBuilder;
-        this.totalCountHeaderBuilder = totalCountHeaderBuilder;
-    }
-    
-    @Override
-    public HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page) {
-        headers.add(ApiHttpHeaders.TOTAL_COUNT, totalCountHeaderBuilder.buildTotal(page));
+	/**
+	 * Construct a new instance.
+	 *
+	 * @param linkHeaderBuilder       Builder of {@code Link} header.
+	 * @param totalCountHeaderBuilder Builder of {@code X-Total-Count} header.
+	 * @since 1.0.0
+	 */
+	@Autowired
+	public HateoasPaginationHeadersBuilder(@NotNull LinkHeaderBuilder linkHeaderBuilder, @NotNull TotalCountHeaderBuilder totalCountHeaderBuilder) {
+		Assert.notNull(linkHeaderBuilder, "LinkHeaderBuild must not be null");
+		Assert.notNull(totalCountHeaderBuilder, "TotalCountHeaderBuilder must not be null");
+		this.linkHeaderBuilder = linkHeaderBuilder;
+		this.totalCountHeaderBuilder = totalCountHeaderBuilder;
+	}
 
-        if (!page.isFirst()) {
-            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildFirst());
-        }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page) {
+		logger.trace("Method addPaginationData called with headers: {} and page: {}", headers, page);
+		headers.add(ApiHttpHeaders.TOTAL_COUNT, this.totalCountHeaderBuilder.buildTotal(page));
 
-        if (!page.isLast()) {
-            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildLast(page));
-        }
+		if (!page.isFirst()) {
+			logger.trace("Actual page is not the first");
+			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildFirst());
+		}
 
-        if (page.hasPrevious()) {
-            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildPrev(page));
-        }
+		if (!page.isLast()) {
+			logger.trace("Actual page is not the last");
+			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildLast(page));
+		}
 
-        if (page.hasNext()) {
-            headers.add(ApiHttpHeaders.LINK, linkHeaderBuilder.buildNext(page));
-        }
-        
-        return headers;
-    }
+		if (page.hasPrevious()) {
+			logger.trace("Actual page has a previous page");
+			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildPrev(page));
+		}
+
+		if (page.hasNext()) {
+			logger.trace("Actual page has a next page");
+			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildNext(page));
+		}
+
+		logger.trace("Method addPaginationData return headers: {}", headers);
+		return headers;
+	}
 }
