@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/cmateosl/role-api.svg?branch=master)](https://travis-ci.org/cmateosl/rol-api)
+[![Build Status](https://travis-ci.org/cmateosl/role-api.svg?branch=master)](https://travis-ci.org/cmateosl/role-api)
 [![Quality Gate](http://sonarqube.com/api/badges/gate?key=es.esky:role-api)](http://sonarqube.com/dashboard/index/es.esky:role-api)
 
 ## Role API 
