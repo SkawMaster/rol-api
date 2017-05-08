@@ -37,7 +37,6 @@ import es.esky.role.error.domain.ApiError;
  */
 @RestController
 public class RestfulErrorController implements ErrorController {
-
 	private static final Logger logger = LoggerFactory.getLogger(RestfulErrorController.class);
 
 	private final ErrorProperties errorProperties;

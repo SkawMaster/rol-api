@@ -32,7 +32,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * @since 1.0.0
  */
 public class ApiError implements Serializable {
-
 	public static final long serialVersionUID = 1L;
 
 	private String code;
