@@ -16,17 +16,18 @@
 
 package es.esky.role.users.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import es.esky.role.users.domain.validator.Lowercase;
-import es.esky.role.users.domain.validator.Uppercase;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import es.esky.role.users.domain.validator.Lowercase;
+import es.esky.role.users.domain.validator.Uppercase;
 
 import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 
@@ -39,83 +40,86 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
+	public static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+	@Id
+	private String username;
 
-    @Id
-    private String username;
+	@JsonProperty(access = WRITE_ONLY)
+	@Lowercase
+	@Uppercase
+	@Size(min = 8)
+	private String password;
 
-    @JsonProperty(access = WRITE_ONLY)
-    @Lowercase
-    @Uppercase
-    @Size(min = 8)
-    private String password;
+	/**
+	 * Get username.
+	 *
+	 * @return username.
+	 * @since 1.0.0
+	 */
+	public String getUsername() {
+		return username;
+	}
 
-    /**
-     * Get username.
-     *
-     * @return username.
-     */
-    public String getUsername() {
-        return username;
-    }
+	/**
+	 * Set username.
+	 *
+	 * @param username username.
+	 * @since 1.0.0
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    /**
-     * Set username.
-     *
-     * @param username username.
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	/**
+	 * Get password.
+	 *
+	 * @return password.
+	 * @since 1.0.0
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * Get password.
-     *
-     * @return password.
-     */
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * Set password.
+	 *
+	 * @param password password.
+	 * @since 1.0.0
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    /**
-     * Set password.
-     *
-     * @param password password.
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+		User user = (User) o;
 
-        User user = (User) o;
+		return new EqualsBuilder()
+				.append(username, user.username)
+				.append(password, user.password)
+				.isEquals();
+	}
 
-        return new EqualsBuilder()
-                .append(username, user.username)
-                .append(password, user.password)
-                .isEquals();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(username)
-                .append(password)
-                .toHashCode();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+				.append(username)
+				.append(password)
+				.toHashCode();
+	}
 }

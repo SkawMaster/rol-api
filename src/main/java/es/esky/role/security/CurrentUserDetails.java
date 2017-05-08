@@ -16,11 +16,13 @@
 
 package es.esky.role.security;
 
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.Assert;
 
 import es.esky.role.users.domain.User;
 
@@ -31,15 +33,15 @@ import es.esky.role.users.domain.User;
  * @since 1.0.0
  */
 public class CurrentUserDetails implements UserDetails {
-
 	private final User userInfo;
 
 	/**
-	 * Construct a new CurrentUserDetails.
+	 * Construct a new instance with an {@code User}.
 	 *
 	 * @param userInfo User logged information.
 	 */
-	public CurrentUserDetails(User userInfo) {
+	public CurrentUserDetails(@NotNull User userInfo) {
+		Assert.notNull(userInfo, "User must not be null");
 		this.userInfo = userInfo;
 	}
 
@@ -56,7 +58,7 @@ public class CurrentUserDetails implements UserDetails {
 	 */
 	@Override
 	public String getPassword() {
-		return userInfo.getPassword();
+		return this.userInfo.getPassword();
 	}
 
 	/**
@@ -64,7 +66,7 @@ public class CurrentUserDetails implements UserDetails {
 	 */
 	@Override
 	public String getUsername() {
-		return userInfo.getUsername();
+		return this.userInfo.getUsername();
 	}
 
 	/**

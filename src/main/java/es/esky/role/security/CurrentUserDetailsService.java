@@ -16,34 +16,37 @@
 
 package es.esky.role.security;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 import es.esky.role.users.api.exception.UserNotFoundException;
 import es.esky.role.users.domain.User;
 import es.esky.role.users.service.UsersService;
 
 /**
- * Load user data from a {@link UsersService}.
+ * Load user data from {@link UsersService}.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
 public class CurrentUserDetailsService implements UserDetailsService {
-
 	private final UsersService usersService;
 
 	/**
-	 * Constructor of CurrentDetailsService.
+	 * Create a new instance.
 	 *
 	 * @param usersService Provide the way to get user data.
 	 */
 	@Autowired
-	public CurrentUserDetailsService(UsersService usersService) {
+	public CurrentUserDetailsService(@NotNull UsersService usersService) {
+		Assert.notNull(usersService, "UsersService must not be null");
 		this.usersService = usersService;
 	}
 
@@ -54,7 +57,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) {
 		User user;
 		try {
-			user = usersService.findByUsername(username);
+			user = this.usersService.findByUsername(username);
 		} catch (UserNotFoundException e) {
 			String error = String.format("User %s was not found.", username);
 			throw new UsernameNotFoundException(error, e);

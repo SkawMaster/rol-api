@@ -16,27 +16,52 @@
 
 package es.esky.role.users.api.exception;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * Exception thrown when a user not exist.
+ * Throw when not an user is not found.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class UserNotFoundException extends RuntimeException {
+	/**
+	 * Construct a new user not found exception with a specified detail message and cause.
+	 *
+	 * @param message Detailed error message.
+	 * @param cause   Cause of the exception.
+	 * @since 1.0.0
+	 */
+	public UserNotFoundException(@NotNull String message, @NotNull Throwable cause) {
+		super(message, cause);
+	}
 
-    public UserNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
+	/**
+	 * Construct a new user not found exception with a specified cause.
+	 *
+	 * @param cause Cause of the exception.
+	 * @since 1.0.0
+	 */
+	public UserNotFoundException(@NotNull Throwable cause) {
+		super("User not found", cause);
+	}
 
-    public UserNotFoundException(String message) {
-        super(message);
-    }
+	/**
+	 * Construct a new user not found exception without cause and with a specified message.
+	 *
+	 * @param message Detailed error message.
+	 * @since 1.0.0
+	 */
+	public UserNotFoundException(@NotNull String message) {
+		super(message);
+	}
 
-    public UserNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    public UserNotFoundException() {
-        super();
-    }
+	/**
+	 * Construct a new user not found exception without cause and with the default message.
+	 *
+	 * @since 1.0.0
+	 */
+	public UserNotFoundException() {
+		super("User not found");
+	}
 }

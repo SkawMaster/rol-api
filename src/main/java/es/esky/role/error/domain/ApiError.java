@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 /**
  * Api error data model.
  *
+ * <p>The error can contain:
  * <ul>
  * <li>Code: Unique and self explain for find easily.</li>
  * <li>Message: Detailed description of the current error.</li>

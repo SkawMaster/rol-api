@@ -18,22 +18,25 @@ package es.esky.role.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 /**
  * Configure security of the application.
- * <p>
- * The configuration is:
+ *
+ * <p>Current configuration set:
  * <ul>
- * <li>Set http basic authentication.</li>
- * <li>Set token entry point.</li>
+ * <li>Http basic authentication.</li>
+ * <li>HttpStatusEntryPoint with 401 as current http status code.</li>
+ * <li>Session stateless.</li>
+ * <li>BCrypt password encoder.</li>
  * </ul>
- * </p>
  *
  * @author Cristian Mateos López
  * @since 1.0.0
@@ -41,27 +44,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	private static final int ENCODER_STRENGTH = 10;
 
-    private static final int ENCODER_STRENGTH = 10;
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().anyRequest().fullyAuthenticated()
+				.and().httpBasic().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().csrf().disable();
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().fullyAuthenticated()
-                .and().httpBasic().authenticationEntryPoint(new TokenAuthenticationEntryPoint())
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().csrf().disable();
-    }
-
-    /**
-     * Configured password encoder bean.
-     *
-     * @return A configured {@link BCryptPasswordEncoder}.
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(ENCODER_STRENGTH);
-    }
+	/**
+	 * Configured password encoder bean.
+	 *
+	 * @return A configured {@link BCryptPasswordEncoder}.
+	 * @since 1.0.0
+	 */
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(ENCODER_STRENGTH);
+	}
 }

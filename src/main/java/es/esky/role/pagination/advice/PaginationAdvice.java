@@ -39,7 +39,6 @@ import es.esky.role.pagination.PaginationHeadersBuilder;
  */
 @ControllerAdvice
 public class PaginationAdvice implements ResponseBodyAdvice<Object> {
-
 	private final PaginationHeadersBuilder paginationHeadersBuilder;
 
 	/**

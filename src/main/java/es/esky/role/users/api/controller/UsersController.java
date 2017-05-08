@@ -16,15 +16,19 @@
 
 package es.esky.role.users.api.controller;
 
-import es.esky.role.users.domain.User;
-import es.esky.role.users.service.UsersService;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import es.esky.role.users.domain.User;
+import es.esky.role.users.service.UsersService;
 
 /**
  * User resource controller.
@@ -33,30 +37,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 1.0.0
  */
 @RestController
-@RequestMapping(value = UsersController.BASE_URL)
+@RequestMapping(value = "/users")
 public class UsersController {
-    static final String BASE_URL = "/users";
+	private final UsersService usersService;
 
-    private final UsersService usersService;
+	/**
+	 * Construct a new instance.
+	 *
+	 * @param usersService Users service.
+	 */
+	@Autowired
+	public UsersController(@NotNull UsersService usersService) {
+		Assert.notNull(usersService, "UsersService must not be null");
+		this.usersService = usersService;
+	}
 
-    /**
-     * Constructor of UsersController.
-     *
-     * @param usersService Users service.
-     */
-    @Autowired
-    public UsersController(UsersService usersService) {
-        this.usersService = usersService;
-    }
-
-    /**
-     * Find a page of users by a criteria.
-     *
-     * @param page Requested page.
-     * @return Page requested.
-     */
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Page<User> findByCriteria(Pageable page) {
-        return usersService.findByCriteria(page);
-    }
+	/**
+	 * Find a page of users by a criteria.
+	 *
+	 * @param page Requested page.
+	 * @return Page requested.
+	 */
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Page<User> findByCriteria(Pageable page) {
+		return usersService.findByCriteria(page);
+	}
 }
