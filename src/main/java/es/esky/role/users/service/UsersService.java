@@ -16,42 +16,43 @@
 
 package es.esky.role.users.service;
 
-import es.esky.role.users.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import es.esky.role.users.domain.User;
+
 /**
- * Provide users data.
+ * Provide methods to work with {@link User} entities.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public interface UsersService {
+	/**
+	 * Find a users page by a page info request.
+	 *
+	 * @param page Page request.
+	 * @return Users page.
+	 * @since 1.0.0
+	 */
+	Page<User> findByCriteria(Pageable page);
 
-    /**
-     * Find a users page by a criteria and a page request.
-     *
-     * @param page Page request.
-     * @return Users page.
-     */
-    Page<User> findByCriteria(Pageable page);
+	/**
+	 * Find a user by an username
+	 *
+	 * @param username User username
+	 * @return User
+	 * @throws es.esky.role.users.api.exception.UserNotFoundException if user not exist.
+	 * @since 1.0.0
+	 */
+	User findByUsername(String username);
 
-    /**
-     * Find a user by its username
-     * <p>
-     * Can throw a {@link es.esky.role.users.api.exception.UserNotFoundException} if user not exist.
-     * </p>
-     *
-     * @param username User username
-     * @return User
-     */
-    User findByUsername(String username);
-
-    /**
-     * Save a new user.
-     *
-     * @param user New user data.
-     * @return User after save it.
-     */
-    User save(User user);
+	/**
+	 * Save a new user.
+	 *
+	 * @param user New user data.
+	 * @return User after save it.
+	 * @since 1.0.0
+	 */
+	User save(User user);
 }

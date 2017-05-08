@@ -43,7 +43,7 @@ import static org.mockito.Mockito.when;
  * @since 1.0.0
  */
 @RunWith(MockitoJUnitRunner.class)
-public class JpaUsersServiceTest {
+public class SimpleUsersServiceTest {
 
     private static final User USER_1 = user().withUsername("user1").withPassword("1234").build();
     private static final User USER_2 = user().withUsername("user2").withPassword("1234").build();
@@ -55,7 +55,7 @@ public class JpaUsersServiceTest {
     private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private JpaUsersService usersService;
+    private SimpleUsersService usersService;
 
     @Test
     public void findByCriteria_validPage_returnUsersPage() {

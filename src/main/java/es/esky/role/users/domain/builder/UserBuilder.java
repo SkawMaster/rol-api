@@ -16,59 +16,68 @@
 
 package es.esky.role.users.domain.builder;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.util.Assert;
+
 import es.esky.role.users.domain.User;
 
 /**
- * User instance builder.
+ * Help to build a new {@link User} instance.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 public class UserBuilder {
+	private final User user;
 
-    private final User user;
+	private UserBuilder() {
+		this.user = new User();
+	}
 
-    private UserBuilder() {
-        this.user = new User();
-    }
+	/**
+	 * Construct a new {@link UserBuilder} instance.
+	 *
+	 * @return New user builder.
+	 * @since 1.0.0
+	 */
+	public static UserBuilder user() {
+		return new UserBuilder();
+	}
 
-    /**
-     * Instance a new user builder.
-     *
-     * @return New user builder.
-     */
-    public static UserBuilder user() {
-        return new UserBuilder();
-    }
+	/**
+	 * Set username to the building user.
+	 *
+	 * @param username Username for the current building user.
+	 * @return Current {@link UserBuilder} instance.
+	 * @since 1.0.0
+	 */
+	public UserBuilder withUsername(@NotNull String username) {
+		Assert.notNull(username, "Username must not be null");
+		this.user.setUsername(username);
+		return this;
+	}
 
-    /**
-     * Set a username for new user.
-     *
-     * @param username New username.
-     * @return User builder.
-     */
-    public UserBuilder withUsername(String username) {
-        user.setUsername(username);
-        return this;
-    }
+	/**
+	 * Set password to the building user.
+	 *
+	 * @param password Password for the current building user.
+	 * @return Current {@link UserBuilder} instance.
+	 * @since 1.0.0
+	 */
+	public UserBuilder withPassword(@NotNull String password) {
+		Assert.notNull(password, "Password must not be null");
+		this.user.setPassword(password);
+		return this;
+	}
 
-    /**
-     * Set a password for new user.
-     *
-     * @param password New password.
-     * @return User builder
-     */
-    public UserBuilder withPassword(String password) {
-        user.setPassword(password);
-        return this;
-    }
-
-    /**
-     * Builds the user.
-     *
-     * @return A user built.
-     */
-    public User build() {
-        return this.user;
-    }
+	/**
+	 * Build the user instance.
+	 *
+	 * @return The {@link User} build instance.
+	 * @since 1.0.0
+	 */
+	public User build() {
+		return this.user;
+	}
 }

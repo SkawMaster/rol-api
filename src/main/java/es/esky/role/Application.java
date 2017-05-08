@@ -29,7 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
- * Api entry point class.
+ * Api entry point and main configuration class.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
@@ -37,9 +37,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @SpringBootApplication
 @EnableAutoConfiguration
 public class Application {
-
 	/**
-	 * Entry point.
+	 * Api Entry point.
 	 *
 	 * @param args Application call arguments.
 	 */
@@ -47,11 +46,24 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	/**
+	 * Construct a {@link ErrorProperties} with the current server properties.
+	 *
+	 * @param serverProperties Current server properties.
+	 * @return A singleton {@link ErrorProperties} bean.
+	 * @since 1.0.0
+	 */
 	@Bean
 	public ErrorProperties errorProperties(ServerProperties serverProperties) {
 		return serverProperties.getError();
 	}
 
+	/**
+	 * Construct a {@link UriComponentsBuilder} with the current http request.
+	 *
+	 * @return A request scope {@link UriComponentsBuilder} bean.
+	 * @since 1.0.0
+	 */
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public UriComponentsBuilder uriComponentsBuilder() {

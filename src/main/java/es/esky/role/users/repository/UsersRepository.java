@@ -16,11 +16,12 @@
 
 package es.esky.role.users.repository;
 
-import es.esky.role.users.domain.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import es.esky.role.users.domain.User;
+
 /**
- * Access via JPA to users data.
+ * Provide methods to retrieve entities from database using JPA specification.
  *
  * @author Cristian Mateos López
  * @since 1.0.0

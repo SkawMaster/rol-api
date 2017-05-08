@@ -45,6 +45,7 @@ public class UsersController {
 	 * Construct a new instance.
 	 *
 	 * @param usersService Users service.
+	 * @since 1.0.0
 	 */
 	@Autowired
 	public UsersController(@NotNull UsersService usersService) {
@@ -57,6 +58,7 @@ public class UsersController {
 	 *
 	 * @param page Requested page.
 	 * @return Page requested.
+	 * @since 1.0.0
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Page<User> findByCriteria(Pageable page) {

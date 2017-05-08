@@ -16,36 +16,35 @@
 
 package es.esky.role.users.domain.validator;
 
-import org.springframework.stereotype.Component;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
 /**
- * Validate a {@link Uppercase} constraint.
+ * Validate if a {@code String} is uppercase. Use for {@link Uppercase} interface.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
 public class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
+	private final Pattern HAS_UPPERCASE = Pattern.compile("[A-Z]");
 
-    private final Pattern hasUppercase = Pattern.compile("[A-Z]");
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void initialize(Uppercase constraintAnnotation) {
+		// Not initialization needed.
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize(Uppercase constraintAnnotation) {
-        // Not initialization needed.
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        return hasUppercase.matcher(value).find();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isValid(String value, ConstraintValidatorContext context) {
+		return HAS_UPPERCASE.matcher(value).find();
+	}
 }

@@ -16,36 +16,35 @@
 
 package es.esky.role.users.domain.validator;
 
-import org.springframework.stereotype.Component;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
 /**
- * Validate a {@link Lowercase} constraint.
+ * Validate if a {@code String} is lowercase. Use for {@link Lowercase} interface.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
 @Component
 public class LowercaseValidator implements ConstraintValidator<Lowercase, String> {
+	private static final Pattern HAS_LOWERCASE = Pattern.compile("[a-z]");
 
-    private final Pattern hasLowercase = Pattern.compile("[a-z]");
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void initialize(Lowercase constraintAnnotation) {
+		// Not initialization needed.
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize(Lowercase constraintAnnotation) {
-        // Not initialization needed.
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        return hasLowercase.matcher(value).find();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean isValid(String value, ConstraintValidatorContext context) {
+		return HAS_LOWERCASE.matcher(value).find();
+	}
 }

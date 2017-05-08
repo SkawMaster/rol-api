@@ -34,9 +34,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = LowercaseValidator.class)
 public @interface Lowercase {
-    String message() default "{es.esky.role.user.validation.constraints.lower_case}";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
+	String message() default "{es.esky.role.user.validation.constraints.lower_case}";
+	Class<?>[] groups() default {};
+	Class<? extends Payload>[] payload() default {};
 }
