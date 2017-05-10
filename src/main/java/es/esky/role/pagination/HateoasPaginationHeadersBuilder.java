@@ -64,30 +64,29 @@ public class HateoasPaginationHeadersBuilder implements PaginationHeadersBuilder
 	 */
 	@Override
 	public HttpHeaders addPaginationData(HttpHeaders headers, Page<?> page) {
-		logger.trace("Method addPaginationData called with headers: {} and page: {}", headers, page);
-		headers.add(ApiHttpHeaders.TOTAL_COUNT, this.totalCountHeaderBuilder.buildTotal(page));
+		addHeaderAndLog(headers, ApiHttpHeaders.TOTAL_COUNT, this.totalCountHeaderBuilder.buildTotal(page));
 
 		if (!page.isFirst()) {
-			logger.trace("Actual page is not the first");
-			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildFirst());
+			addHeaderAndLog(headers, ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildFirst());
 		}
 
 		if (!page.isLast()) {
-			logger.trace("Actual page is not the last");
-			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildLast(page));
+			addHeaderAndLog(headers, ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildLast(page));
 		}
 
 		if (page.hasPrevious()) {
-			logger.trace("Actual page has a previous page");
-			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildPrev(page));
+			addHeaderAndLog(headers, ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildPrev(page));
 		}
 
 		if (page.hasNext()) {
-			logger.trace("Actual page has a next page");
-			headers.add(ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildNext(page));
+			addHeaderAndLog(headers, ApiHttpHeaders.LINK, this.linkHeaderBuilder.buildNext(page));
 		}
 
-		logger.trace("Method addPaginationData return headers: {}", headers);
 		return headers;
+	}
+
+	private void addHeaderAndLog(HttpHeaders headers, String header, String value) {
+		logger.debug("Adding [{}: {}] header", header, value);
+		headers.add(header, value);
 	}
 }
