@@ -18,6 +18,9 @@ package es.esky.role.users.api.controller;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +42,8 @@ import es.esky.role.users.service.UsersService;
 @RestController
 @RequestMapping(value = "/users")
 public class UsersController {
+	private final static Logger logger = LoggerFactory.getLogger(UsersController.class);
+
 	private final UsersService usersService;
 
 	/**
@@ -62,6 +67,9 @@ public class UsersController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Page<User> findByCriteria(Pageable page) {
-		return usersService.findByCriteria(page);
+		Page<User> users = usersService.findByCriteria(page);
+		logger.info("Found users {} on page {} with size {}", CollectionUtils.collect(users, User::getUsername), page
+				.getPageNumber(), page.getPageSize());
+		return users;
 	}
 }

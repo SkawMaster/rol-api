@@ -18,6 +18,8 @@ package es.esky.role.security;
 
 import javax.validation.constraints.NotNull;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,6 +39,8 @@ import es.esky.role.users.service.UsersService;
  */
 @Component
 public class CurrentUserDetailsService implements UserDetailsService {
+	private final static Logger logger = LoggerFactory.getLogger(CurrentUserDetailsService.class);
+
 	private final UsersService usersService;
 
 	/**
@@ -58,6 +62,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
 		User user;
 		try {
 			user = this.usersService.findByUsername(username);
+			logger.info("Trying login {} user", username);
 		} catch (UserNotFoundException e) {
 			String error = String.format("User %s was not found.", username);
 			throw new UsernameNotFoundException(error, e);
