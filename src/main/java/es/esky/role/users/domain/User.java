@@ -25,6 +25,7 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import es.esky.role.users.domain.validator.Lowercase;
 import es.esky.role.users.domain.validator.Uppercase;
@@ -40,7 +41,7 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String username;
@@ -121,5 +122,15 @@ public class User implements Serializable {
 				.append(username)
 				.append(password)
 				.toHashCode();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+				.append("username", username)
+				.toString();
 	}
 }
