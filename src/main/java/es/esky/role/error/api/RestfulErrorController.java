@@ -18,8 +18,6 @@ package es.esky.role.error.api;
 
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -37,8 +35,6 @@ import es.esky.role.error.domain.ApiError;
  */
 @RestController
 public class RestfulErrorController implements ErrorController {
-	private static final Logger logger = LoggerFactory.getLogger(RestfulErrorController.class);
-
 	private final ErrorProperties errorProperties;
 
 	/**
@@ -73,8 +69,6 @@ public class RestfulErrorController implements ErrorController {
 		ApiError error = new ApiError();
 		error.setCode("unauthorized");
 		error.setMessage("Authentication error");
-
-		logger.info("Api error throw with value {}", error);
 
 		return error;
 	}
