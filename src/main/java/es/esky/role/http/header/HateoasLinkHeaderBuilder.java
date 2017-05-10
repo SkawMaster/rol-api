@@ -18,8 +18,6 @@ package es.esky.role.http.header;
 
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -42,8 +40,6 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	private static final String LINK_REL_PREVIOUS = "prev";
 	private static final String LINK_REL_NEXT = "next";
 	private static final String LINK_REL_LAST = "last";
-
-	private static final Logger logger = LoggerFactory.getLogger(HateoasLinkHeaderBuilder.class);
 
 	private final UriComponentsBuilder builder;
 
@@ -72,7 +68,6 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	 */
 	@Override
 	public String buildLast(final Page<?> page) {
-		logger.trace("Method buildLast called with Page value: {}", page);
 		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.getTotalPages() - 1).build();
 		return buildLink(components, LINK_REL_LAST);
 	}
@@ -82,7 +77,6 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	 */
 	@Override
 	public String buildNext(final Page<?> page) {
-		logger.trace("Method buildNext called with Page value: {}", page);
 		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.nextPageable().getPageNumber()).build();
 		return buildLink(components, LINK_REL_NEXT);
 	}
@@ -92,7 +86,6 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	 */
 	@Override
 	public String buildPrev(final Page<?> page) {
-		logger.trace("Method buildPrev called with Page value: {}", page);
 		final UriComponents components = this.builder.replaceQueryParam(QUERY_PARAM_PAGE, page.previousPageable().getPageNumber()).build();
 		return buildLink(components, LINK_REL_PREVIOUS);
 	}
@@ -105,8 +98,6 @@ public class HateoasLinkHeaderBuilder implements LinkHeaderBuilder {
 	 * @return Formed link representation.
 	 */
 	private String buildLink(final UriComponents components, final String rel) {
-		String link = String.format(LINK_STANDARD_FMT, components, rel);
-		logger.debug("Link of header <Link> formed with value: {}", link);
-		return link;
+		return String.format(LINK_STANDARD_FMT, components, rel);
 	}
 }
