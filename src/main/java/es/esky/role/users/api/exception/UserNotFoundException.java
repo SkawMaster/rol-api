@@ -25,6 +25,8 @@ import javax.validation.constraints.NotNull;
  * @since 1.0.0
  */
 public class UserNotFoundException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Construct a new user not found exception with a specified detail message and cause.
 	 *
