@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UppercaseValidator implements ConstraintValidator<Uppercase, String> {
-	private final static Pattern HAS_UPPERCASE = Pattern.compile("[A-Z]");
+	private static final Pattern HAS_UPPERCASE = Pattern.compile("[A-Z]");
 
 	/**
 	 * {@inheritDoc}

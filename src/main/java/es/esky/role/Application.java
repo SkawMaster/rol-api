@@ -21,12 +21,18 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.Ordered;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import es.esky.role.http.logging.RequestAndResponseLoggingFilter;
+import es.esky.role.http.logging.RequestLogData;
+import es.esky.role.http.logging.ResponseLogData;
 
 /**
  * Api entry point and main configuration class.
@@ -68,5 +74,15 @@ public class Application {
 	@Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public UriComponentsBuilder uriComponentsBuilder() {
 		return ServletUriComponentsBuilder.fromCurrentRequest();
+	}
+
+	@Bean
+	public FilterRegistrationBean filterBean() {
+		RequestAndResponseLoggingFilter filter = new RequestAndResponseLoggingFilter(RequestLogData::toString,
+				ResponseLogData::toString);
+
+		FilterRegistrationBean bean = new FilterRegistrationBean(filter);
+		bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 9);
+		return bean;
 	}
 }
