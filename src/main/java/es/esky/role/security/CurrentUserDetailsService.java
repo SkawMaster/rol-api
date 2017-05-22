@@ -39,7 +39,7 @@ import es.esky.role.users.service.UsersService;
  */
 @Component
 public class CurrentUserDetailsService implements UserDetailsService {
-	private final static Logger logger = LoggerFactory.getLogger(CurrentUserDetailsService.class);
+	private static final Logger logger = LoggerFactory.getLogger(CurrentUserDetailsService.class);
 
 	private final UsersService usersService;
 

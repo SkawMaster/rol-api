@@ -42,7 +42,7 @@ import es.esky.role.users.service.UsersService;
 @RestController
 @RequestMapping(value = "/users")
 public class UsersController {
-	private final static Logger logger = LoggerFactory.getLogger(UsersController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
 
 	private final UsersService usersService;
 
