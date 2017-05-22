@@ -20,6 +20,8 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.http.HttpStatus;
 
 /**
+ * Data about current response to use for logging.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
@@ -27,27 +29,46 @@ public class ResponseLogData {
 	private HttpStatus status;
 	private String body;
 
-	public HttpStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(HttpStatus httpStatus) {
-		this.status = httpStatus;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
+	/**
+	 * Create a new immutable instance.
+	 *
+	 * @param status Status of the response.
+	 * @param body   Body of the response.
+	 * @since 1.0.0
+	 */
+	public ResponseLogData(HttpStatus status, String body) {
+		this.status = status;
 		this.body = body;
 	}
 
+	/**
+	 * Get the status code of the response.
+	 *
+	 * @return Response status code.
+	 * @since 1.0.0
+	 */
+	public HttpStatus getStatus() {
+		return this.status;
+	}
+
+	/**
+	 * Get the body of the response.
+	 *
+	 * @return Response body.
+	 * @since 1.0.0
+	 */
+	public String getBody() {
+		return this.body;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-				.append("status", status)
-				.append("body", body)
+				.append("status", this.status)
+				.append("body", this.body)
 				.toString();
 	}
 }

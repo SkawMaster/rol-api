@@ -22,9 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -34,23 +37,24 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
 
 /**
+ * Log the current request and response data.
+ *
+ * Can customize request and response log info overriding
+ * {@link CustomizableLoggingFilter#logRequest(RequestLogData)} and
+ * {@link CustomizableLoggingFilter#logResponse(ResponseLogData)}.
+ *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
+public class CustomizableLoggingFilter extends OncePerRequestFilter {
 	private static final String UNKNOWN_PAYLOAD = "[unknown]";
 	private static final String EMPTY_PAYLOAD = "[empty]";
 
-	private static final Logger logger = LoggerFactory.getLogger(RequestAndResponseLoggingFilter.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomizableLoggingFilter.class);
 
-	private RequestLogDataPrinter requestLogDataPrinter;
-	private ResponseLogDataPrinter responseLogDataPrinter;
-
-	public RequestAndResponseLoggingFilter(RequestLogDataPrinter requestLogDataPrinter, ResponseLogDataPrinter responseLogDataPrinter) {
-		this.requestLogDataPrinter = requestLogDataPrinter;
-		this.responseLogDataPrinter = responseLogDataPrinter;
-	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		if (!(request instanceof ContentCachingRequestWrapper)) {
@@ -61,67 +65,73 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
 			response = new ContentCachingResponseWrapper(response);
 		}
 
-		logRequest(request);
+		RequestLogData requestLogData = buildRequestLogData(request);
+		logRequest(requestLogData);
+
+		// Continue the chain.
 		filterChain.doFilter(request, response);
-		logResponse(response);
 
-		updateResponse(response);
+		ResponseLogData responseLogData = buildResponseLogData(response);
+		logResponse(responseLogData);
+
+		WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class).copyBodyToResponse();
 	}
 
-	private void updateResponse(HttpServletResponse response) throws IOException {
-		ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper
-				.class);
-		wrapper.copyBodyToResponse();
+	/**
+	 * Log the request data.
+	 *
+	 * @param requestLogData Data of the current request.
+	 * @since 1.0.0
+	 */
+	protected void logRequest(RequestLogData requestLogData) {
+		logger.debug("Request in-bound: {}", requestLogData);
 	}
 
-	private void logRequest(HttpServletRequest request) {
-		RequestLogData data = buildRequestData(request);
-		logger.debug(requestLogDataPrinter.print(data));
+	/**
+	 * Log the response data.
+	 *
+	 * @param responseLogData Data of the current response.
+	 * @since 1.0.0
+	 */
+	protected void logResponse(ResponseLogData responseLogData) {
+		logger.debug("Response out-bound: {}", responseLogData);
 	}
 
-	private void logResponse(HttpServletResponse response) {
-		ResponseLogData data = buildResponseData(response);
-		logger.debug(responseLogDataPrinter.print(data));
-	}
-
-	private RequestLogData buildRequestData(HttpServletRequest request) {
+	private RequestLogData buildRequestLogData(HttpServletRequest request) {
 		ServerHttpRequest httpRequest = new ServletServerHttpRequest(request);
 
-		RequestLogData data = new RequestLogData();
-		data.setUri(httpRequest.getURI());
-		data.setMethod(httpRequest.getMethod());
-		data.setHeaders(httpRequest.getHeaders());
-		data.setBody(buildRequestPayload(request));
+		URI uri = httpRequest.getURI();
+		HttpMethod method = httpRequest.getMethod();
+		HttpHeaders headers = httpRequest.getHeaders();
+		String body = extractRequestPayload(request);
 
-		return data;
+		return new RequestLogData(uri, method, headers, body);
 	}
 
-	private ResponseLogData buildResponseData(HttpServletResponse response) {
-		ResponseLogData data = new ResponseLogData();
+	private ResponseLogData buildResponseLogData(HttpServletResponse response) {
+		HttpStatus status = HttpStatus.valueOf(response.getStatus());
+		String body = extractResponsePayload(response);
 
-		data.setStatus(HttpStatus.valueOf(response.getStatus()));
-		data.setBody(buildResponsePayload(response));
-
-		return data;
+		return new ResponseLogData(status, body);
 	}
 
-	private String buildRequestPayload(HttpServletRequest request) {
+	private String extractRequestPayload(HttpServletRequest request) {
 		ContentCachingRequestWrapper wrapper = WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
 		if (wrapper != null) {
-			return buildPayload(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
+			return extractPayload(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
 		}
 		return EMPTY_PAYLOAD;
 	}
 
-	private String buildResponsePayload(HttpServletResponse response) {
+	private String extractResponsePayload(HttpServletResponse response) {
 		ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
 		if (wrapper != null) {
-			return buildPayload(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
+			return extractPayload(wrapper.getContentAsByteArray(), wrapper.getCharacterEncoding());
 		}
 		return EMPTY_PAYLOAD;
 	}
 
-	private String buildPayload(byte[] buffer, String characterEncoding) {
+	private String extractPayload(byte[] buffer, String characterEncoding) {
 		if (buffer.length > 0) {
 			int length = Math.min(buffer.length, 5120);
 			try {

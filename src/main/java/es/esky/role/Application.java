@@ -30,9 +30,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import es.esky.role.http.logging.RequestAndResponseLoggingFilter;
-import es.esky.role.http.logging.RequestLogData;
-import es.esky.role.http.logging.ResponseLogData;
+import es.esky.role.http.logging.CustomizableLoggingFilter;
 
 /**
  * Api entry point and main configuration class.
@@ -76,13 +74,20 @@ public class Application {
 		return ServletUriComponentsBuilder.fromCurrentRequest();
 	}
 
+	/**
+	 * Register the logging request and response system.
+	 *
+	 * @return A new {@link FilterRegistrationBean} with {@link CustomizableLoggingFilter} in the highest precedence
+	 * order.
+	 * @since 1.0.0
+	 */
 	@Bean
 	public FilterRegistrationBean filterBean() {
-		RequestAndResponseLoggingFilter filter = new RequestAndResponseLoggingFilter(RequestLogData::toString,
-				ResponseLogData::toString);
+		CustomizableLoggingFilter filter = new CustomizableLoggingFilter();
 
 		FilterRegistrationBean bean = new FilterRegistrationBean(filter);
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 9);
+		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+
 		return bean;
 	}
 }
