@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -50,31 +48,32 @@ public class CustomizableLoggingFilter extends OncePerRequestFilter {
 	private static final String UNKNOWN_PAYLOAD = "[unknown]";
 	private static final String EMPTY_PAYLOAD = "[empty]";
 
-	private static final Logger logger = LoggerFactory.getLogger(CustomizableLoggingFilter.class);
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		if (!(request instanceof ContentCachingRequestWrapper)) {
-			request = new ContentCachingRequestWrapper(request);
+		HttpServletRequest wrapperRequest = request;
+		HttpServletResponse wrapperResponse = response;
+
+		if (!(wrapperRequest instanceof ContentCachingRequestWrapper)) {
+			wrapperRequest = new ContentCachingRequestWrapper(request);
 		}
 
-		if (!(response instanceof ContentCachingResponseWrapper)) {
-			response = new ContentCachingResponseWrapper(response);
+		if (!(wrapperResponse instanceof ContentCachingResponseWrapper)) {
+			wrapperResponse = new ContentCachingResponseWrapper(response);
 		}
 
-		RequestLogData requestLogData = buildRequestLogData(request);
+		RequestLogData requestLogData = buildRequestLogData(wrapperRequest);
 		logRequest(requestLogData);
 
 		// Continue the chain.
-		filterChain.doFilter(request, response);
+		filterChain.doFilter(wrapperRequest, wrapperResponse);
 
-		ResponseLogData responseLogData = buildResponseLogData(response);
+		ResponseLogData responseLogData = buildResponseLogData(wrapperResponse);
 		logResponse(responseLogData);
 
-		WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class).copyBodyToResponse();
+		WebUtils.getNativeResponse(wrapperResponse, ContentCachingResponseWrapper.class).copyBodyToResponse();
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class CustomizableLoggingFilter extends OncePerRequestFilter {
 	 * @since 1.0.0
 	 */
 	protected void logRequest(RequestLogData requestLogData) {
-		logger.debug("Request in-bound: {}", requestLogData);
+		logger.debug("Request in-bound: " + requestLogData);
 	}
 
 	/**
@@ -94,7 +93,7 @@ public class CustomizableLoggingFilter extends OncePerRequestFilter {
 	 * @since 1.0.0
 	 */
 	protected void logResponse(ResponseLogData responseLogData) {
-		logger.debug("Response out-bound: {}", responseLogData);
+		logger.debug("Response out-bound: " + responseLogData);
 	}
 
 	private RequestLogData buildRequestLogData(HttpServletRequest request) {
