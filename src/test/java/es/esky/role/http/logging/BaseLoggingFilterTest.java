@@ -24,8 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockFilterChain;
@@ -34,10 +36,12 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
+import static org.apache.commons.lang3.RandomUtils.nextBytes;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.isA;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Cristian Mateos López
@@ -49,7 +53,7 @@ public class BaseLoggingFilterTest {
 	private static final BaseLoggingFilter FILTER = new BaseLoggingFilter();
 
 	@Test
-	public void doFilterInternal_CacheRequestAndResponse() throws Exception {
+	public void doFilterInternal_NoCacheRequestAndResponse_CallWithCacheRequestAndResponse() throws Exception {
 		HttpServletRequest request = new MockHttpServletRequest();
 		HttpServletResponse response = new MockHttpServletResponse();
 		FilterChain filterChain = spy(new MockFilterChain());
@@ -58,6 +62,34 @@ public class BaseLoggingFilterTest {
 
 		Mockito.verify(filterChain).doFilter(isA(ContentCachingRequestWrapper.class), isA
 				(ContentCachingResponseWrapper.class));
+	}
+
+	@Test
+	public void doFilterInternal_CacheRequestAndNoCacheResponse_CallWithCacheRequestAndResponse() throws Exception {
+		HttpServletRequest cacheRequest = new ContentCachingRequestWrapper(new MockHttpServletRequest());
+		HttpServletResponse response = new MockHttpServletResponse();
+		FilterChain filterChain = spy(new MockFilterChain());
+
+		ArgumentCaptor<HttpServletRequest> requestCaptor = ArgumentCaptor.forClass(HttpServletRequest.class);
+
+		FILTER.doFilterInternal(cacheRequest, response, filterChain);
+
+		Mockito.verify(filterChain).doFilter(requestCaptor.capture(), isA(ContentCachingResponseWrapper.class));
+		assertThat(requestCaptor.getValue(), is(cacheRequest));
+	}
+
+	@Test
+	public void doFilterInternal_NoCacheRequestAndCacheResponse_CallWithCacheRequestAndResponse() throws Exception {
+		HttpServletRequest request = new MockHttpServletRequest();
+		HttpServletResponse cacheResponse = new ContentCachingResponseWrapper(new MockHttpServletResponse());
+		FilterChain filterChain = spy(new MockFilterChain());
+
+		ArgumentCaptor<HttpServletResponse> responseCaptor = ArgumentCaptor.forClass(HttpServletResponse.class);
+
+		FILTER.doFilterInternal(request, cacheResponse, filterChain);
+
+		Mockito.verify(filterChain).doFilter(isA(ContentCachingRequestWrapper.class), responseCaptor.capture());
+		assertThat(responseCaptor.getValue(), is(cacheResponse));
 	}
 
 	@Test
@@ -72,7 +104,7 @@ public class BaseLoggingFilterTest {
 	}
 
 	@Test
-	public void buildRequestLog_ReturnStringRequestInfo() {
+	public void buildRequestLog_WithNoBody_ReturnStringRequestWithUriAndEmptyBody() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setMethod(HttpMethod.GET.name());
 		request.setRequestURI("/dummy");
@@ -83,12 +115,86 @@ public class BaseLoggingFilterTest {
 	}
 
 	@Test
-	public void buildResponseLog_ReturnStringResponseInfo() {
+	public void buildRequestLog_WithCorrectBody_ReturnStringRequestWithUriAndBody() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setMethod(HttpMethod.GET.name());
+		request.setRequestURI("/dummy");
+		request.setContent("test".getBytes());
+
+		String log = FILTER.buildRequestLog(new ContentCachingRequestWrapper(request));
+
+		assertThat(log, is("Server has received a request\n > GET http://localhost/dummy\n > Content-Length: 4\ntest"));
+	}
+
+	@Test
+	public void buildRequestLog_WithBadCacheRequest_ReturnStringRequestWithUriAndUnknownBody() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setMethod(HttpMethod.GET.name());
+		request.setRequestURI("/dummy");
+		request.setContent("test".getBytes());
+
+		String log = FILTER.buildRequestLog(request);
+
+		assertThat(log, is("Server has received a request\n > GET http://localhost/dummy\n > Content-Length: 4\n[unknown]"));
+	}
+
+	@Test
+	public void buildRequestLog_WithUnreadableBody_ReturnStringRequestWithUriAndUnknownBody() throws IOException {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setMethod(HttpMethod.GET.name());
+		request.setRequestURI("/dummy");
+		request.setContent(nextBytes(4));
+
+		ContentCachingRequestWrapper requestWrapper = spy(new ContentCachingRequestWrapper(request));
+		when(requestWrapper.getReader()).thenThrow(new UnsupportedEncodingException());
+
+		String log = FILTER.buildRequestLog(requestWrapper);
+
+		assertThat(log, is("Server has received a request\n > GET http://localhost/dummy\n > Content-Length: 4\n[unknown]"));
+	}
+
+	@Test
+	public void buildResponseLog_WithNoBody_ReturnStringResponseWithUriAndEmptyBody() {
 		MockHttpServletResponse response = new MockHttpServletResponse();
 
 		String log = FILTER.buildResponseLog(new ContentCachingResponseWrapper(response));
 
 		assertThat(log, is("Server responded with a response\n > 200\n[empty]"));
+	}
+
+	@Test
+	public void buildResponseLog_WithCorrectBody_ReturnStringResponseWithUriAndBody() throws IOException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
+		responseWrapper.getWriter().print("test");
+
+		String log = FILTER.buildResponseLog(responseWrapper);
+
+		assertThat(log, is("Server responded with a response\n > 200\ntest"));
+	}
+
+	@Test
+	public void buildResponseLog_WithBadCacheRequest_ReturnStringResponseWithUriAndUnknownBody() {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		String log = FILTER.buildResponseLog(response);
+
+		assertThat(log, is("Server responded with a response\n > 200\n[unknown]"));
+	}
+
+	@Test
+	public void buildResponseLog_WithUnreadableBody_ReturnStringResponseWithUriAndUnknownBody() throws IOException {
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		ContentCachingResponseWrapper responseWrapper = spy(new ContentCachingResponseWrapper(response));
+		responseWrapper.getWriter().print("test");
+		//noinspection InjectedReferences
+		responseWrapper.setCharacterEncoding("notExistThisEncoding");
+
+		String log = FILTER.buildResponseLog(responseWrapper);
+
+		assertThat(log, is("Server responded with a response\n > 200\n[unknown]"));
 	}
 
 	private class TestFilterChain implements FilterChain {

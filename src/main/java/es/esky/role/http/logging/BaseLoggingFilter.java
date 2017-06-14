@@ -84,8 +84,8 @@ public class BaseLoggingFilter extends OncePerRequestFilter {
 						(StringUtils.LF);
 
 		Map<String, String> headers = httpRequest.getHeaders().toSingleValueMap();
-		for (String key : headers.keySet()) {
-			sb.append(" > ").append(key).append(": ").append(headers.get(key)).append(StringUtils.LF);
+		for (Map.Entry<String, String> entry : headers.entrySet()) {
+			sb.append(" > ").append(entry.getKey()).append(": ").append(entry.getValue()).append(StringUtils.LF);
 		}
 
 		sb.append(extractRequestPayload(request));
@@ -116,7 +116,12 @@ public class BaseLoggingFilter extends OncePerRequestFilter {
 
 	private String extractRequestPayload(HttpServletRequest request) {
 		ContentCachingRequestWrapper wrapper = WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
-		if (wrapper != null && wrapper.getContentLength() > 0) {
+
+		if (wrapper == null) {
+			return UNKNOWN_PAYLOAD;
+		}
+
+		if (wrapper.getContentLength() > 0) {
 			try {
 				return request.getReader().lines().collect(Collectors.joining(StringUtils.LF));
 			} catch (IOException e) {
@@ -128,7 +133,12 @@ public class BaseLoggingFilter extends OncePerRequestFilter {
 
 	private String extractResponsePayload(HttpServletResponse response) {
 		ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
-		if (wrapper != null && wrapper.getContentAsByteArray().length > 0) {
+
+		if (wrapper == null) {
+			return UNKNOWN_PAYLOAD;
+		}
+
+		if (wrapper.getContentAsByteArray().length > 0) {
 			byte[] buffer = wrapper.getContentAsByteArray();
 			int length = Math.min(buffer.length, 5120);
 			try {
