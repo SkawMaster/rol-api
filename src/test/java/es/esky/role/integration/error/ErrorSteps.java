@@ -16,14 +16,15 @@
 
 package es.esky.role.integration.error;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import cucumber.api.java.en.Then;
-import es.esky.role.error.domain.ApiError;
-import es.esky.role.integration.http.HttpWorld;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import cucumber.api.java.en.Then;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import es.esky.role.error.domain.Error;
+import es.esky.role.integration.http.HttpWorld;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
@@ -36,17 +37,17 @@ import static org.junit.Assert.assertThat;
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
 public class ErrorSteps {
 
-    @Autowired
-    private HttpWorld httpWorld;
+	@Autowired
+	private HttpWorld httpWorld;
 
-    @Then("^I should get an error response with the following attributes:$")
-    public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
+	@Then("^I should get an error response with the following attributes:$")
+	public void i_should_get_an_error_response_with_the_following_attributes(Map<String, String> attributes) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
 
-        ApiError error = mapper.readValue(httpWorld.loadResponse().getBody(), ApiError.class);
+		Error error = mapper.readValue(httpWorld.loadResponse().getBody(), Error.class);
 
-        for (String key : attributes.keySet()) {
-            assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
-        }
-    }
+		for (String key : attributes.keySet()) {
+			assertThat(error, hasProperty(key, equalTo(attributes.get(key))));
+		}
+	}
 }
