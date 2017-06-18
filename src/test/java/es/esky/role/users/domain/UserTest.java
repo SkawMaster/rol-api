@@ -16,11 +16,13 @@
 
 package es.esky.role.users.domain;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 
 import static es.esky.role.users.domain.builder.UserBuilder.user;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.*;
 
 /**
@@ -91,4 +93,13 @@ public class UserTest {
         assertThat(user1, equalTo(user2));
         assertThat(hash1, equalTo(hash2));
     }
+
+	@Test
+	public void toString_returnUserStringRepresentation() {
+    	final String expectedRepresentation = "[username=user]";
+    	User user = user().withUsername("user").withPassword("aaa").build();
+    	String value = user.toString();
+
+    	assertThat(value, containsString(expectedRepresentation));
+	}
 }

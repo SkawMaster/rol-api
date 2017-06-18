@@ -21,22 +21,31 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Api error data model.
- *
- * <p>The error can contain:
- * <ul>
- * <li>Code: Unique and self explain for find easily.</li>
- * <li>Message: Detailed description of the current error.</li>
- * </ul>
+ * Error info entity.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
  */
-public class ApiError implements Serializable {
+public class Error implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String code;
 	private String message;
+	private String description;
+
+	/**
+	 * Create an instance of an Error.
+	 *
+	 * @param code        Code of the error.
+	 * @param message     Message of the error.
+	 * @param description Description of the error.
+	 * @since 1.0.0
+	 */
+	public Error(String code, String message, String description) {
+		this.code = code;
+		this.message = message;
+		this.description = description;
+	}
 
 	/**
 	 * Get code error identification.
@@ -46,16 +55,6 @@ public class ApiError implements Serializable {
 	 */
 	public String getCode() {
 		return this.code;
-	}
-
-	/**
-	 * Set code error identification.
-	 *
-	 * @param code Error identification.
-	 * @since 1.0.0
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	/**
@@ -69,13 +68,13 @@ public class ApiError implements Serializable {
 	}
 
 	/**
-	 * Set message error.
+	 * Get description error.
 	 *
-	 * @param message Message error.
+	 * @return Description error.
 	 * @since 1.0.0
 	 */
-	public void setMessage(String message) {
-		this.message = message;
+	public String getDescription() {
+		return this.description;
 	}
 
 	/**
@@ -86,6 +85,7 @@ public class ApiError implements Serializable {
 		return new ToStringBuilder(this)
 				.append("code", this.code)
 				.append("message", this.message)
+				.append("description", this.description)
 				.toString();
 	}
 }

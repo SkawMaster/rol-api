@@ -25,10 +25,10 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.esky.role.error.domain.ApiError;
+import es.esky.role.error.domain.Error;
 
 /**
- * Transform undefined server errors to {@link ApiError} model.
+ * Transform undefined server errors to {@link Error} model.
  *
  * @author Cristian Mateos López
  * @since 1.0.0
@@ -58,18 +58,14 @@ public class RestfulErrorController implements ErrorController {
 	}
 
 	/**
-	 * Catch an undefined server error and map it to {@link ApiError} model.
+	 * Catch an undefined server error and map it to {@link Error} model.
 	 *
-	 * @return Error mapped to {@link ApiError} model.
+	 * @return Error mapped to {@link Error} model.
 	 * @since 1.0.0
 	 */
 	@RequestMapping("${server.error.path:${error.path:/error}}")
-	public ApiError catchError() {
+	public Error catchError() {
 		// TODO: get error info of current request and response.
-		ApiError error = new ApiError();
-		error.setCode("unauthorized");
-		error.setMessage("Authentication error");
-
-		return error;
+		return new Error("unauthorized", "Authentication error", "");
 	}
 }

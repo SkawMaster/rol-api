@@ -23,7 +23,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 
-import es.esky.role.error.domain.ApiError;
+import es.esky.role.error.domain.Error;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -51,7 +51,7 @@ public class RestfulErrorControllerTest {
 
 	@Test
 	public void catchError_returnApiUnauthorizedError() {
-		ApiError error = restfulErrorController.catchError();
+		Error error = restfulErrorController.catchError();
 
 		assertThat(error.getCode(), equalTo("unauthorized"));
 		assertThat(error.getMessage(), equalTo("Authentication error"));
